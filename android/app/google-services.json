@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "81075054901",
+    "firebase_url": "https://asoble-aea1a.firebaseio.com",
+    "project_id": "asoble-aea1a",
+    "storage_bucket": "asoble-aea1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81075054901:android:c0df1aa94061b551b6447c",
+        "android_client_info": {
+          "package_name": "com.asoble.asoble_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81075054901-sh0a0qdo5hiepbe443t54nbhlv77co3k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkNlqJzxbkxrqzgIS6kIRflkz8TTIhk9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81075054901-sh0a0qdo5hiepbe443t54nbhlv77co3k.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "81075054901-cokigmipa85bu38ek0smekekd9iiv015.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.asoble.asobleApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

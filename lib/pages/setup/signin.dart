@@ -1,6 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:asoble_app/pages/home.dart';
+
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+DocumentSnapshot userDocument;
+String userDocumentString;
+bool freeTag = false;
+Color freeColor = Colors.green;
+String freeText ="ひまじゃない；；";
 
 class LoginPage extends StatefulWidget {
   @override
@@ -55,17 +62,18 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Future<User> signIn() async {
+
+  Future signIn() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       try {
         final User user = (await FirebaseAuth.instance
             .signInWithEmailAndPassword(
             email: _email, password: _password)).user;
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => TextGO ()/*Home(user: user)*/));
         print('Singed in: ${user.uid}');
-        return user;
+        userDocumentString = user.uid;
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Home1()));
       } catch (e) {
         print("失敗");
         print(e);
@@ -74,10 +82,54 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-class TextGO  extends StatelessWidget{
+class Home1 extends StatefulWidget {
+  @override
+  _Home1State createState() => new _Home1State();
+}
+
+class _Home1State extends State<Home1> {
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        body:Center(child: Text("サインインしたってばよ!!!!!")));
+        body:Center(
+          child: Column(
+              mainAxisAlignment:MainAxisAlignment.center
+              ,children: <Widget>[
+            Container(
+                child: Text("今ひま？")
+            ),
+            RaisedButton(
+              color: freeColor,
+              onPressed: ()=> setState((){ freeTagChange();}),
+              child: Text(freeText),
+            ),
+      ]
+          ),
+        )
+    );
   }
+}
+
+
+ Future freeTagChange() async{
+
+  if (freeTag == true) {
+    freeTag = false;
+    freeColor = Colors.red;
+    freeText = "ひまじゃない；；";
+  } else {
+    freeTag = true;
+    freeColor = Colors.blue;
+    freeText = "ひま！！！";
+  }
+
+
+
+  await FirebaseFirestore.instance
+      .collection('users')
+    .doc(userDocumentString)
+    .update({'freeTag':freeTag});
+
+
 }

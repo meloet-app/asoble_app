@@ -1,20 +1,26 @@
+import 'package:asoble_app/pages/setup/user_register.dart';
+import 'package:asoble_app/pages/setup/welcome.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:asoble_app/pages/setup/signin.dart';
 
 import 'package:flutter/material.dart';
 
+
+
+String userEmail, userPassword;
+
 class SignUpPage extends StatefulWidget {
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  SignUpPageState createState() => SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
 
+class SignUpPageState extends State<SignUpPage> {
 
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String _email, _password;
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,62 +28,54 @@ class _SignUpPageState extends State<SignUpPage> {
       appBar: new AppBar(),
       body: Form(
           key: _formKey,
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                validator: (input) {
-                  if(input.isEmpty){
-                    return 'Provide an email';
-                  }
-                },
-                decoration: InputDecoration(
-                    labelText: 'Email'
-                ),
-                onSaved: (input) => _email = input,
+          child: Center(
+            child: Container(
+              width: mediaSize.width * 0.8,
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    validator: (input) {
+                      if (input.isEmpty) {
+                        return 'Provide an email';
+                      }
+                    },
+                    decoration: InputDecoration(
+                        labelText: 'Email'
+                    ),
+                    onSaved: (input) => userEmail = input,
+                  ),
+                  TextFormField(
+                    validator: (input) {
+                      if (input.length < 6) {
+                        return 'Longer password please';
+                      }
+                    },
+                    decoration: InputDecoration(
+                        labelText: 'Password'
+                    ),
+                    onSaved: (input) => userPassword = input,
+                    obscureText: true,
+                  ),
+                  RaisedButton(
+                    onPressed: () {
+                      signUp();
+                    },
+                    child: Text('Sign up'),
+                  ),
+                ],
               ),
-              TextFormField(
-                validator: (input) {
-                  if(input.length < 6){
-                    return 'Longer password please';
-                  }
-                },
-                decoration: InputDecoration(
-                    labelText: 'Password'
-                ),
-                onSaved: (input) => _password = input,
-                obscureText: true,
-              ),
-              RaisedButton(
-                onPressed: signUp,
-                child: Text('Sign up'),
-              ),
-            ],
+            ),
           )
       ),
     );
   }
 
   void signUp() async {
-    if(_formKey.currentState.validate()){
+    if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      try{
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password).
-
-        then((currentUser) => FirebaseFirestore.instance
-            .collection("users")
-            .doc(currentUser.user.uid)
-            .set({
-          "name" : "username",
-          "gender":"",
-          "icon":"iconURL",
-          "birthday":"yyyy/mm/dd",
-          "isFree" : false
-        }));
-
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage()));
-      }catch(e){
-        print(e.message);
-      }
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => UserResisterPage()));
     }
   }
+
 }

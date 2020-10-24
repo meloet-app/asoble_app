@@ -3,6 +3,8 @@ import 'package:asoble_app/pages/setup/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+Size mediaSize;
+
 class WelcomePage extends StatefulWidget {
   @override
   _WelcomePageState createState() => _WelcomePageState();
@@ -11,25 +13,32 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    mediaSize = size;
     Firebase.initializeApp();
 
     return Scaffold(
       appBar: AppBar(
         title: Text('My firebase app'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          RaisedButton(
-            onPressed: navigateToSignIn,
-            child: Text('Sign in'),
+      body: Center(
+        child: Container(
+          width:mediaSize.width*0.7,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              RaisedButton(
+                onPressed: navigateToSignIn,
+                child: Text('Sign in'),
+              ),
+              RaisedButton(
+                onPressed: navigateToSignUp,
+                child: Text('Sign up'),
+              ),
+            ],
           ),
-          RaisedButton(
-            onPressed: navigateToSignUp,
-            child: Text('Sign up'),
-          ),
-        ],
+        ),
       ),
     );
   }

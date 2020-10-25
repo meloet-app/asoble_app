@@ -2,6 +2,8 @@ import 'package:asoble_app/pages/mypages/in_community/community_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'in_community/community_navigation_bar.dart';
+
 class GlobalCommunityListPage extends StatelessWidget{
 
   @override
@@ -25,7 +27,7 @@ class GlobalCommunityListPage extends StatelessWidget{
                     return Container(
                       height:120,
                       child: GestureDetector(
-                        onTap:(){ Navigator.push(context, CupertinoPageRoute(builder: (context) => CommunityHomePage()));},
+                        onTap:(){ Navigator.push(context, CupertinoPageRoute(builder: (context) => CommunityNavigationBar()));},
                         child: new Card(
                          child: Row(
                            children: [

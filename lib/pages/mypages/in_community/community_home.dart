@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../global_event_list.dart';
 
 class CommunityHomePage extends StatefulWidget {
+
   @override
   CommunityHomePageState createState() {
     return CommunityHomePageState();
@@ -18,51 +19,52 @@ class CommunityHomePageState extends State<CommunityHomePage>{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-        body: CustomScrollView(
+    return CustomScrollView(
           slivers: <Widget>[
-           SliverAppBar(
-          floating: true,
-          pinned: true,
-          snap: false,
-
-          expandedHeight: mediaSize.height*0.25,
+           new SliverAppBar(
+              floating: true,
+              pinned: true,
+              snap: false,
+            backgroundColor: Colors.white70,
+            expandedHeight: mediaSize.height*0.25,
+            elevation: 0,
 
             flexibleSpace: FlexibleSpaceBar(
                 background: Image(image:AssetImage("lib/assets/demo2.jpeg"),
                   fit: BoxFit.cover,
+
                 ),
             ),
-              title: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-
-                        child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.6),
-                                borderRadius: BorderRadius.circular(10)
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                               child: Text('CommunityName No,1'),
-                        )),
-
-
-                  ),
-                ],
-              ),
+              centerTitle: true,
+              title:
+                             Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.black.withOpacity(0.6),
+                                      borderRadius: BorderRadius.circular(10)
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                     child: Text('CommunityName No,1'),
+                              )),
+               actions: <Widget>[
+                 IconButton(icon: Icon(Icons.dehaze),
+                     iconSize: 40,
+                     onPressed: null)
+               ]
           ),
             SliverList(
               delegate: SliverChildListDelegate(
+
                     <Widget>[
-                   Padding(
-                     padding: const EdgeInsets.only(top:18.0),
-                     child: CarouselSlider(
+                      Padding(
+                        padding: const EdgeInsets.only(top:40.0,bottom:20),
+                        child: Center(child: Text("〜イベント〜")),
+                      ),
+
+                      CarouselSlider(
                         items: currentPartyList,
                         options: CarouselOptions(
-                            height: 180,
+                            height: 160,
                             viewportFraction: 0.8,
                             initialPage: 0,
                             enableInfiniteScroll: true,
@@ -78,7 +80,7 @@ class CommunityHomePageState extends State<CommunityHomePage>{
                                 _currentEvent = index;
                               });
                             })),
-                   ),
+
                       Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: currentPartyList.map((widget) {
@@ -97,12 +99,17 @@ class CommunityHomePageState extends State<CommunityHomePage>{
                       }).toList(),
                     ),
 
-                    Padding(
-                      padding: const EdgeInsets.only(top:18.0),
-                      child: CarouselSlider(
+                      Padding(
+                        padding: const EdgeInsets.only(top:40.0,bottom:20),
+                        child: Center(child: Text("〜お知らせ〜")),
+                      ),
+
+
+
+                      CarouselSlider(
                         items: currentCommunityInfoList,
                         options: CarouselOptions(
-                        height: 180,
+                        height: 160,
                         viewportFraction: 0.8,
                         initialPage: 0,
                         enableInfiniteScroll: true,
@@ -118,7 +125,7 @@ class CommunityHomePageState extends State<CommunityHomePage>{
                         _currentInfo = index;
                         });
                         })),
-                    ),
+
                     Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: currentCommunityInfoList.map((widget) {
@@ -136,56 +143,9 @@ class CommunityHomePageState extends State<CommunityHomePage>{
                   );
                   }).toList(),
                   ),
-
-
-
-                      Padding(
-                        padding: const EdgeInsets.only(top:18.0),
-                        child: CarouselSlider(
-                            items: currentPartyList,
-                            options: CarouselOptions(
-                                height: 180,
-                                viewportFraction: 0.8,
-                                initialPage: 0,
-                                enableInfiniteScroll: true,
-                                reverse: false,
-                                autoPlay: true,
-                                autoPlayInterval: Duration(seconds: 6),
-                                autoPlayAnimationDuration: Duration(milliseconds: 1200),
-                                autoPlayCurve: Curves.fastOutSlowIn,
-                                enlargeCenterPage: true,
-                                scrollDirection: Axis.horizontal,
-                                onPageChanged: (index, reason) {
-                                  setState(() {
-                                    _currentEvent = index;
-                                  });
-                                })),
-                      ),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: currentCommunityInfoList.map((widget) {
-                          int indexInfo = currentCommunityInfoList.indexOf(widget);
-                          return Container(
-                            width: 8.0,
-                            height: 8.0,
-                            margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: _currentEvent == indexInfo
-                                  ? Color.fromRGBO(0, 0, 0, 0.9)
-                                  : Color.fromRGBO(0, 0, 0, 0.4),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-
-
-
-
                       ]),
             ),
-            ],));
+            ],);
 
   }
 
@@ -197,3 +157,5 @@ List<Widget> currentCommunityInfoList =[
   CurrentPartyListWidget(partyName: "先週から新たに３つのタグが登録されました", partyInfo: "チェックしてみよう！",index:12),
 
 ];
+
+

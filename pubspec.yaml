@@ -90,3 +90,4 @@ flutter:
   assets:
     - lib/assets/demo1.jpg
     - lib/assets/demo2.jpeg
+    - lib/assets/demo3.png

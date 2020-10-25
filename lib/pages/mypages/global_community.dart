@@ -1,3 +1,5 @@
+import 'package:asoble_app/pages/mypages/in_community/community_home.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class GlobalCommunityListPage extends StatelessWidget{
@@ -22,21 +24,24 @@ class GlobalCommunityListPage extends StatelessWidget{
                     if (index < 4) {
                     return Container(
                       height:120,
-                      child: new Card(
-                       child: Row(
-                         children: [
-                         Container(
-                         margin: EdgeInsets.only(left: 6, top: 6, right: 12, bottom: 6),
-                          height: 60,
-                          width: 60,
-                           decoration: BoxDecoration(
-                          border: Border.all(color: Colors.green, width: 2),
-                          borderRadius: BorderRadius.circular(60)
+                      child: GestureDetector(
+                        onTap:(){ Navigator.push(context, CupertinoPageRoute(builder: (context) => CommunityHomePage()));},
+                        child: new Card(
+                         child: Row(
+                           children: [
+                           Container(
+                           margin: EdgeInsets.only(left: 6, top: 6, right: 12, bottom: 6),
+                            height: 60,
+                            width: 60,
+                             decoration: BoxDecoration(
+                            border: Border.all(color: Colors.green, width: 2),
+                            borderRadius: BorderRadius.circular(60)
+                          ),
                         ),
-                      ),
-                         Text("コミュニティ" + index.toString()),
-                      ],
-                      )
+                           Text("コミュニティ" + index.toString()),
+                        ],
+                        )
+                        ),
                       ),
                     );}else{return null;}
                     }

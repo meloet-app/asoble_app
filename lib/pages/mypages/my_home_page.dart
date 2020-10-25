@@ -81,8 +81,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
 
                     child:RaisedButton(
+
                       elevation: 10,
-                      color: Colors.white,
+                      color: freeColor.withOpacity(0.8),
                       onPressed: ()=> setState((){
                         freeTagChange();
                       }),
@@ -132,7 +133,7 @@ class HomePageButtons extends StatelessWidget{
 
           child:RaisedButton(
             elevation: 10,
-            color: Colors.white,
+            color: Colors.green.withOpacity(0.8),
             onPressed: () => fromHomePageNavigation(context:context,navigation:navigation),
             child: Text(homepageButtonText),
             shape: CircleBorder(),
@@ -145,7 +146,7 @@ fromHomePageNavigation({BuildContext context,int navigation}){
 
 
 
-  Navigator.push(context, MaterialPageRoute(builder: (context) => navigationList[navigation] ));
+  Navigator.push(context, CupertinoPageRoute(builder: (context) => navigationList[navigation] ));
 }
 
 

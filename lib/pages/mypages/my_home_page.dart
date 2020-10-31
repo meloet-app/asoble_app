@@ -4,14 +4,13 @@ import 'package:asoble_app/pages/setup/welcome.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:neumorphic/neumorphic.dart';
 
-import 'AppBar.dart';
 
 
 bool freeTag = false;
-Color freeColor = Colors.red;
-String freeText ="ひまじゃない；；";
+Color freeColor = Colors.grey[400];
+Color noFreeColor = Colors.red;
+
 
 
 
@@ -30,76 +29,100 @@ class _MyHomePageState extends State<MyHomePage> {
 
       body:Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+
           children: [
-            Container(
-              width:mediaSize.width*0.7,
+            Padding(
+              padding: const EdgeInsets.only(top:80),
+              child: Text("遊べる人を探す"),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top:32.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    width:mediaSize.width*0.35,
 
-              child: ButtonTheme(
-                height:80,
+                    child: ButtonTheme(
+                      height:mediaSize.width*0.35,
 
-                child: RaisedButton(
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                      child: RaisedButton(
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
 
 
-                onPressed: () {
-                  fromHomePageNavigation(context:context,navigation:1);
-                },
-                textColor: Colors.white,
-                padding: const EdgeInsets.all(0),
-                  child: Container(
-                    height:80,
-                    decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    gradient: LinearGradient(
-                      colors: <Color>[
-                        Colors.blue[300],
-                        Colors.blue[500],
-                        Colors.blue[700],
-                      ],
+                      onPressed: () {
+                        fromHomePageNavigation(context:context,navigation:6);
+                      },
+                      textColor: Colors.white,
+                      padding: const EdgeInsets.all(0),
+                        child: Container(
+                          height:mediaSize.width*0.35,
+                          decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(40),
+                          gradient: LinearGradient(
+                            colors: <Color>[
+                              Colors.blue[300],
+                              Colors.blue[500],
+                              Colors.blue[700],
+                            ],
+                          ),
+                        ),
+                        padding: const EdgeInsets.all(10),
+                         child: Center(child: const Text('全員から探す')),
+                      ),
+                  ),
+                    ),
+                  ),Container(
+                    width:mediaSize.width*0.35,
+
+                    child: ButtonTheme(
+                      height:mediaSize.width*0.35,
+
+                      child: RaisedButton(
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+
+
+                        onPressed: () {
+                          fromHomePageNavigation(context:context,navigation:4);
+                        },
+                        textColor: Colors.white,
+                        padding: const EdgeInsets.all(0),
+                        child: Container(
+                          height:mediaSize.width*0.35,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40),
+                            gradient: LinearGradient(
+                              colors: <Color>[
+                                Colors.green[300],
+                                Colors.green[500],
+                                Colors.green[700],
+                              ],
+                            ),
+                          ),
+                          padding: const EdgeInsets.all(10),
+                          child: Center(child: const Text('コミュニティから探す')),
+                        ),
+                      ),
                     ),
                   ),
-                  padding: const EdgeInsets.all(10),
-                   child: Center(child: const Text('freefriend人が遊びたがっています')),
-                ),
-            ),
+                ],
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(top:48.0),
+              child: Text("自分のこと"),
+            ),
 
-            Container(
-              margin: EdgeInsets.only(top:60),
-              width: mediaSize.width*0.6,
-              height:mediaSize.width*0.6,
+                new HomePageButtons(context:context,homepageButtonText:"自分のヒマを知らせる",navigation:1),
+                new HomePageButtons(context:context,homepageButtonText:"マイページ",navigation:3),
 
-              decoration: BoxDecoration(
 
-                  border: Border.all(color: freeColor,width: 2),
-                  borderRadius: BorderRadius.circular(mediaSize.width*0.6)
-              ),
-
-                    child:RaisedButton(
-
-                      elevation: 10,
-                      color: freeColor.withOpacity(0.8),
-                      onPressed: ()=> setState((){
-                        freeTagChange();
-                      }),
-                     highlightColor: freeColor.withOpacity(0.3),
-                     child: Text(freeText),
-                  shape: CircleBorder(),
-                  )
-                ),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                new HomePageButtons(context:context,homepageButtonText:"イベント",navigation:2),
-                new HomePageButtons(context:context,homepageButtonText:"コミュニティ",navigation:3),
-                new HomePageButtons(context:context,homepageButtonText:"プロフィール",navigation:4),
-
-              ],
-            )
 
 
 
@@ -123,12 +146,13 @@ class HomePageButtons extends StatelessWidget{
   Widget build(BuildContext context) {
     return
         Container(
-          margin: EdgeInsets.only(top:60),
-            width: mediaSize.width*0.25,
-            height:mediaSize.width*0.25,
+          margin: EdgeInsets.only(top:40),
+            width: mediaSize.width*0.7,
+            height:mediaSize.width*0.24,
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.green,width: 2),
-                borderRadius: BorderRadius.circular(mediaSize.width*0.25)
+
             ),
 
           child:RaisedButton(
@@ -136,7 +160,7 @@ class HomePageButtons extends StatelessWidget{
             color: Colors.green.withOpacity(0.8),
             onPressed: () => fromHomePageNavigation(context:context,navigation:navigation),
             child: Text(homepageButtonText),
-            shape: CircleBorder(),
+
           )
         );
   }
@@ -144,28 +168,8 @@ class HomePageButtons extends StatelessWidget{
 
 fromHomePageNavigation({BuildContext context,int navigation}){
 
-
-
   Navigator.push(context, CupertinoPageRoute(builder: (context) => navigationList[navigation] ));
 }
 
-
-Future freeTagChange() async{
-
-  if (freeTag == true) {
-    freeTag = false;
-    freeColor = Colors.red;
-    freeText = "ひまじゃない；；";
-  } else {
-    freeTag = true;
-    freeColor = Colors.blue;
-    freeText = "ひま！！！";
-  }
-
-  await FirebaseFirestore.instance
-      .collection('users')
-      .doc(userDocumentString)
-      .update({'freeTag':freeTag});
-}
 
 

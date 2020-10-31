@@ -19,17 +19,7 @@ class CommunityEventPageState extends State<CommunityEventPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: AppBar(
-        title:
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('CommunityName No,1'),
-        ),
-        actions:<Widget>[IconButton(icon: Icon(Icons.dehaze),
-            iconSize: 40,
-            onPressed: null)
-        ],
-      ),
+
       body: Column(
         children: [
           Expanded(

@@ -18,47 +18,76 @@ class CommunityEventPageState extends State<CommunityEventPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Center(
 
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-                shrinkWrap: true,
-                physics: ScrollPhysics(),
-                itemBuilder: (BuildContext context, int i) {
-                  if (i.isOdd) return Divider();
-                  final index = i ~/ 2;
-                  if (index < 4) {
-                    return new GestureDetector(
-                      onTap: () {
-                        Navigator.push(context, CupertinoPageRoute(builder: (context) => EventDetailPage(context:context,index:index)));
+        child: Container(
 
-                      },
-                      child: Card(
-                          child: Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(
-                                    left: 6, top: 6, right: 12, bottom: 6),
-                                height: 60,
-                                width: 60,
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.green, width: 2),
-                                    borderRadius: BorderRadius.circular(60)),
-                              ),
-                              Text("イベントその" + index.toString()),
-                            ],
-                          )),
-                    );
-                  } else {
-                    return null;
-                  }
-                }),
-          )
-        ],
-      ),
+
+            child: friendListWidget()
+        )
     );
+  }
+
+  Widget friendListWidget() {
+    List<Widget> widgetList = new List<Widget>();
+    for (var i = 0; i < currentCommunityPartyList.length; i++) {
+      widgetList.add(new EventCard(
+          eventName: currentCommunityPartyList[i][0],
+          time: currentCommunityPartyList[i][1],
+          index: currentCommunityPartyList[i][2]
+      )
+      );
+    }
+    return new ListView(children: widgetList);
+  }
+}
+
+class EventCard extends StatelessWidget {
+
+
+  String eventName;
+  String time;
+  int index;
+  EventCard({this.eventName,this.time,this.index});
+
+  Color indicatorColor = const Color(0xff33CC10);
+
+  @override
+  Widget build(BuildContext context) {
+    return
+          Row(crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height:mediaSize.height*0.15+16.0,
+              width:mediaSize.width*0.25 ,
+
+                child:Center(child: Text(time))),
+            Padding(
+            padding: const EdgeInsets.all(8.0),
+            child:
+              Center(
+                child: new GestureDetector(
+                  child: Card(
+                  child: Container(
+                    width: mediaSize.width*0.6,
+                    height: mediaSize.height*0.15,
+
+                      child:Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                       children:[
+                         Text(eventName,style: TextStyle(fontWeight: FontWeight.bold),),
+                         Text(time),
+                       ])
+
+
+
+                    ),
+                  ),
+                ),
+              ),
+            )
+  ]);
   }
 }
 
@@ -67,13 +96,11 @@ class CommunityEventPageState extends State<CommunityEventPage> {
 
 
 
-
-
-
-
-List<Widget> currentCommunityPartyList = [
-  CurrentPartyListWidget(partyName: "ZOOM飲み！！！", partyInfo: "夜７時から",index:10),
-  CurrentPartyListWidget(partyName: "有楽町でしっぽり！！！", partyInfo: "夜９時から",index:11),
-  CurrentPartyListWidget(partyName: "歌舞伎町でバチコり！！！", partyInfo: "夜１０時から",index:12),
-  CurrentPartyListWidget(partyName: "多摩センターでゲロのみ！！！", partyInfo: "夜１０時から",index:13),
+List<List> currentCommunityPartyList = [
+  ["ZOOM飲み！！！",  "PM 7:00 〜",10],
+  ["有楽町でしっぽり！！！", "夜９時から",11],
+  ["歌舞伎町でバチコり！！！","夜１０時から",12],
+  ["多摩センターでゲロのみ！！！", "夜１０時から",13],
+  ["歌舞伎町でバチコり！！！","夜１０時から",12],
+  ["多摩センターでゲロのみ！！！", "夜１０時から",13],
 ];

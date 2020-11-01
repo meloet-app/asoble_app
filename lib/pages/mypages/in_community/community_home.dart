@@ -121,6 +121,8 @@ class CommunityHomePageState extends State<CommunityHomePage>{
 
   }
 
+
+
 List<Widget> currentCommunityInfoList =[
   CurrentPartyListWidget(partyName: "新しく〇〇さんが参加しました", partyInfo: "みんなで歓迎しましょう！",index:10),
   CurrentPartyListWidget(partyName: "来週土曜日は△△さんのお誕生日です", partyInfo: "みんなでお祝いしましょう！",index:11),

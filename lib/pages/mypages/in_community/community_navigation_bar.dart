@@ -16,8 +16,9 @@ class CommunityNavigationBar extends StatefulWidget {
 class CommunityNavigationBarState extends State<CommunityNavigationBar> {
   static List<Widget> _pageList = [
     CommunityFriendPage(),
-    CommunityEventPage(),
+
     CommunityInfoPage(),
+    CommunityEventPage(),
     MyProfilePage(),
   ];
 

@@ -1,9 +1,12 @@
+import 'package:asoble_app/models/select_community_model.dart';
 import 'package:asoble_app/pages/mypages/routes.dart';
 import 'package:asoble_app/pages/setup/signin.dart';
 import 'package:asoble_app/pages/setup/welcome.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
 
 
 
@@ -12,123 +15,80 @@ Color freeColor = Colors.grey[400];
 Color noFreeColor = Colors.red;
 
 
+List<String> CommunityDisplayList = ["全員", "コミュニティ１", "コミュニティ２"];
 
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => new _MyHomePageState();
-}
-
-
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePage extends StatelessWidget{
+  MyHomePage({Key key, this.title}) : super(key: key);
+  final String title;
 
   @override
   Widget build(BuildContext context) {
 
-    return new Scaffold(
+
+    return
+    MaterialApp(
+      home:ChangeNotifierProvider<SelectCommunityModel>(
+        create: (_)=> SelectCommunityModel(),
+       child: new Scaffold(
+         appBar: AppBar(title: Text("Home")
+         ),
+
 
       body:Center(
         child: Column(
-
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top:80),
-              child: Text("遊べる人を探す"),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top:32.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    width:mediaSize.width*0.35,
-
-                    child: ButtonTheme(
-                      height:mediaSize.width*0.35,
-
-                      child: RaisedButton(
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Consumer<SelectCommunityModel>(
+                  builder: (context, model, child) {
+                    return DropdownButton<String>(
+                      underline:  Container(
+                        height: 2,
+                        color: Colors.grey,
                       ),
 
-
-                      onPressed: () {
-                        fromHomePageNavigation(context:context,navigation:6);
-                      },
-                      textColor: Colors.white,
-                      padding: const EdgeInsets.all(0),
-                        child: Container(
-                          height:mediaSize.width*0.35,
-                          decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          gradient: LinearGradient(
-                            colors: <Color>[
-                              Colors.blue[300],
-                              Colors.blue[500],
-                              Colors.blue[700],
-                            ],
-                          ),
-                        ),
-                        padding: const EdgeInsets.all(10),
-                         child: Center(child: const Text('全員から探す')),
-                      ),
-                  ),
-                    ),
-                  ),Container(
-                    width:mediaSize.width*0.35,
-
-                    child: ButtonTheme(
-                      height:mediaSize.width*0.35,
-
-                      child: RaisedButton(
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40),
-                        ),
-
-
-                        onPressed: () {
-                          fromHomePageNavigation(context:context,navigation:4);
+                      value: CommunityDisplayList[model.selectedCommunityIndex],
+                      onChanged:(String newValue){
+                        model.changeCommunity(newValue);
                         },
-                        textColor: Colors.white,
-                        padding: const EdgeInsets.all(0),
-                        child: Container(
-                          height:mediaSize.width*0.35,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            gradient: LinearGradient(
-                              colors: <Color>[
-                                Colors.green[300],
-                                Colors.green[500],
-                                Colors.green[700],
-                              ],
+                      selectedItemBuilder: (context) {
+                        return CommunityDisplayList.map((String item) {
+                          return Container(
+
+                            child: Text(
+                              item,
+
                             ),
+                          );
+                        }).toList();
+                      },
+                      items: CommunityDisplayList.map((String item) {
+                        return DropdownMenuItem(
+                          value: item,
+                          child: Text(
+                            item,
+                            style: item == CommunityDisplayList[model.selectedCommunityIndex]
+                                ? TextStyle(fontWeight: FontWeight.bold)
+                                : TextStyle(fontWeight: FontWeight.normal),
                           ),
-                          padding: const EdgeInsets.all(10),
-                          child: Center(child: const Text('コミュニティから探す')),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                        );
+                      }).toList(),
+                    );
+
+                  }
+                ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top:48.0),
-              child: Text("自分のこと"),
-            ),
-
-                new HomePageButtons(context:context,homepageButtonText:"自分のヒマを知らせる",navigation:1),
-                new HomePageButtons(context:context,homepageButtonText:"マイページ",navigation:3),
-
-
-
-
-
           ],
         ),
-      ));
+      ),
+
+
+)
+
+    )
+      );
   }
 }
 
@@ -147,7 +107,7 @@ class HomePageButtons extends StatelessWidget{
     return
         Container(
           margin: EdgeInsets.only(top:40),
-            width: mediaSize.width*0.7,
+            width: mediaSize.width*0.9,
             height:mediaSize.width*0.24,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),

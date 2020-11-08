@@ -34,6 +34,8 @@ dependencies:
 
   flutter_datetime_picker: ^1.4.0
 
+  provider: ^4.3.2+2
+
   neumorphic: ^0.4.0
   carousel_slider: ^2.3.1
 

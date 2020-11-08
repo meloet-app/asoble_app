@@ -1,8 +1,9 @@
-import 'package:asoble_app/pages/setup/user_register.dart';
-import 'package:asoble_app/pages/setup/welcome.dart';
+
+import 'package:asoble_app/setup/user_register.dart';
+import 'package:asoble_app/setup/welcome.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:asoble_app/pages/setup/signin.dart';
+
 
 import 'package:flutter/material.dart';
 

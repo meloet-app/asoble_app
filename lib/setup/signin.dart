@@ -1,5 +1,7 @@
-import 'package:asoble_app/pages/mypages/my_home_page.dart';
-import 'package:asoble_app/pages/setup/welcome.dart';
+
+import 'package:asoble_app/pages/my_home_page.dart';
+import 'package:asoble_app/pages/navigation_bar/navigation_bar.dart';
+import 'package:asoble_app/setup/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -78,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
         print('Singed in: ${user.uid}');
         userDocumentString = user.uid;
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MyHomePage()));
+            context, MaterialPageRoute(builder: (context) => NavigationBar()));
       } catch (e) {
         print("失敗");
         print(e);

@@ -4,26 +4,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../global_friend_list.dart';
+import 'navigation_bar/navigation_bar.dart';
 
 
-class CommunityFriendPage extends StatefulWidget {
-
-  @override
-  CommunityFriendPageState createState() {
-    return CommunityFriendPageState();
-  }
-}
 
 
-class CommunityFriendPageState extends State<CommunityFriendPage> {
+
+
+
+class FriendPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Center(
-            child: friendListWidget()
-        )
+    return Scaffold(
+      appBar: AppBarWithDropDown(),
+      body: Container(
+          child: Center(
+              child: friendListWidget()
+          )
+      ),
     );
   }
 

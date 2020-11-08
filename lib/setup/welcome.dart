@@ -1,5 +1,6 @@
-import 'package:asoble_app/pages/setup/signin.dart';
-import 'package:asoble_app/pages/setup/signup.dart';
+
+import 'package:asoble_app/setup/signin.dart';
+import 'package:asoble_app/setup/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

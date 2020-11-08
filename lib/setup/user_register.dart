@@ -1,6 +1,8 @@
-import 'package:asoble_app/pages/mypages/my_home_page.dart';
-import 'package:asoble_app/pages/setup/signup.dart';
-import 'package:asoble_app/pages/setup/welcome.dart';
+
+import 'package:asoble_app/pages/my_home_page.dart';
+import 'package:asoble_app/pages/navigation_bar/navigation_bar.dart';
+import 'package:asoble_app/setup/signup.dart';
+import 'package:asoble_app/setup/welcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
-import '../../main.dart';
 
 
 class UserResisterPage extends StatefulWidget {
@@ -277,7 +278,7 @@ class RegisterConfirmPage extends StatelessWidget{
             ),
             OutlinedButton(
                 child: Text("これで始める"),
-              onPressed: () =>  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()),
+              onPressed: () =>  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigationBar()),
           )
           )
         ],

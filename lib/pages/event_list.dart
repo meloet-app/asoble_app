@@ -1,30 +1,23 @@
-import 'package:asoble_app/pages/setup/welcome.dart';
+
+import 'package:asoble_app/setup/welcome.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
 
-import '../global_event_list.dart';
+import 'navigation_bar/navigation_bar.dart';
 
-class CommunityEventPage extends StatefulWidget {
-  @override
-  CommunityEventPageState createState() {
-    return CommunityEventPageState();
-  }
-}
 
-class CommunityEventPageState extends State<CommunityEventPage> {
+
+class EventPage extends StatelessWidget {
   int _current = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-
-        child: Container(
-
-
-            child: friendListWidget()
-        )
+    return Scaffold(
+      appBar: AppBarWithDropDown(),
+      body: Center(
+        child: friendListWidget(),
+      ),
     );
   }
 
@@ -98,9 +91,9 @@ class EventCard extends StatelessWidget {
 
 List<List> currentCommunityPartyList = [
   ["ZOOM飲み！！！",  "PM 7:00 〜",10],
-  ["有楽町でしっぽり！！！", "夜９時から",11],
-  ["歌舞伎町でバチコり！！！","夜１０時から",12],
-  ["多摩センターでゲロのみ！！！", "夜１０時から",13],
-  ["歌舞伎町でバチコり！！！","夜１０時から",12],
-  ["多摩センターでゲロのみ！！！", "夜１０時から",13],
+  ["有楽町でしっぽり！！！", "PM 9:00 〜",11],
+  ["歌舞伎町でバチコり！！！","PM 10:00 〜",12],
+  ["多摩センターでゲロのみ！！！", "PM 10:00 〜",13],
+  ["歌舞伎町でバチコり！！！","PM 10:00 〜",12],
+  ["多摩センターでゲロのみ！！！", "PM 10:00 〜",13],
 ];

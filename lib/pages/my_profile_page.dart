@@ -1,6 +1,3 @@
-
-
-
 import 'package:asoble_app/setup/welcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,10 +23,9 @@ class MyProfilePage extends StatelessWidget{
                     image: new AssetImage(
                         "lib/assets/demo2.jpeg")
                 )
-
               )
-
               ),
+
               SafeArea(
                 child: Align(
                   alignment: AlignmentDirectional.topEnd,
@@ -115,6 +111,7 @@ class MyProfilePage extends StatelessWidget{
                    ),
             ]
                ),
+
                Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
                  children: [
                    Container(

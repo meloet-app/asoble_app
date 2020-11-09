@@ -2,11 +2,9 @@
 
 
 
-import 'package:asoble_app/models/select_community_model.dart';
 import 'package:asoble_app/setup/welcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'event_item/event_carousel.dart';
 import 'navigation_bar/navigation_bar.dart';
 

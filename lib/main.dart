@@ -1,4 +1,5 @@
 
+import 'package:asoble_app/models/calender_model.dart';
 import 'package:asoble_app/setup/welcome.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -15,6 +16,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_)=> SelectCommunityModel(),),
         ChangeNotifierProvider(create: (_)=> EventCarouselModel(),),
+        ChangeNotifierProvider(create: (_)=> SelectIfCalenderModel()),
       ],
       child: MyApp(),
     ),

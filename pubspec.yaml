@@ -33,6 +33,7 @@ dependencies:
   cloud_firestore: ^0.14.1+3
 
   flutter_datetime_picker: ^1.4.0
+  intl: ^0.16.1
 
   provider: ^4.3.2+2
 
@@ -95,4 +96,11 @@ flutter:
   assets:
     - lib/assets/user_icon1.jpg
     - lib/assets/demo2.jpeg
+    - lib/assets/eventdemo1.jpeg
 
+fonts:
+  - family: M PLUS Rounded 1c
+    fonts:
+      - assets:lib/assets/fonts/MPLUSRounded1c-Bold.ttf
+      - assets:lib/assets/fonts/MPLUSRounded1c-Light.ttf
+      - weight: 300

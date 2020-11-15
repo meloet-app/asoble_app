@@ -35,7 +35,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
 
       title: 'Flutter Demo',
-      theme: ThemeData.light(),
+      theme: ThemeData(
+        fontFamily: 'M PLUS Rounded 1c',
+      ),
       home: WelcomePage(),
     );
   }

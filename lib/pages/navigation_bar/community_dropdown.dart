@@ -1,6 +1,7 @@
 
 
 import 'package:asoble_app/models/select_community_model.dart';
+import 'package:asoble_app/setup/welcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,7 @@ class CommunityDropdown extends StatelessWidget{
                   return CommunityDisplayList.map((String item) {
                     return Center(
                       child: Container(
-                        width: 160,
+                        width: mediaSize.width*0.35,
 
 
                             child: Text(
@@ -44,6 +45,7 @@ class CommunityDropdown extends StatelessWidget{
                               style: TextStyle(color: Colors.white,
                               fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis
 
                             ),
 

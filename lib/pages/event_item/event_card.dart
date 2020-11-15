@@ -22,6 +22,7 @@ class EventCard extends StatelessWidget {
                 height:mediaSize.height*0.15+16.0,
                 width:mediaSize.width*0.25 ,
 
+
                 child:Center(child: Text(time))),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -32,6 +33,7 @@ class EventCard extends StatelessWidget {
                     child: Container(
                         width: mediaSize.width*0.6,
                         height: mediaSize.height*0.15,
+
 
                         child:Column(
                             mainAxisAlignment: MainAxisAlignment.center,

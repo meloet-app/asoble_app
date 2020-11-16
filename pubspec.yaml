@@ -35,6 +35,9 @@ dependencies:
   flutter_datetime_picker: ^1.4.0
   intl: ^0.16.1
 
+  toggle_switch: ^0.1.8
+  flutter_sticky_header: ^0.5.0
+
   provider: ^4.3.2+2
 
   neumorphic: ^0.4.0

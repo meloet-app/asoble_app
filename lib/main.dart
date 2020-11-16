@@ -1,8 +1,7 @@
-
 import 'package:asoble_app/models/calender_model.dart';
+import 'package:asoble_app/models/unique_event_model.dart';
 import 'package:asoble_app/setup/welcome.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,26 +13,26 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_)=> SelectCommunityModel(),),
-        ChangeNotifierProvider(create: (_)=> EventCarouselModel(),),
-        ChangeNotifierProvider(create: (_)=> SelectIfCalenderModel()),
+        ChangeNotifierProvider(
+          create: (_) => SelectCommunityModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => EventCarouselModel(),
+        ),
+        ChangeNotifierProvider(create: (_) => SelectIfCalenderModel()),
+        ChangeNotifierProvider(create: (_) => UniqueEventModel()),
+
       ],
       child: MyApp(),
     ),
   );
 }
 
-
-
-
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     initializeDateFormatting('ja');
     return MaterialApp(
-
       title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: 'M PLUS Rounded 1c',

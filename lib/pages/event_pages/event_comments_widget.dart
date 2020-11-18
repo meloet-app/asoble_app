@@ -1,6 +1,7 @@
 
 
 
+import 'package:asoble_app/setup/welcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -43,19 +44,48 @@ class CommentWidget extends StatelessWidget{
     return
    Padding(
      padding: const EdgeInsets.all(16.0),
-     child: Container(color: Colors.grey.withOpacity(0.1),
-       child:Column(
-         children: [
-         Padding(
-           padding: const EdgeInsets.all(8.0),
-           child: Text(name,style: TextStyle(fontSize:16),),
+     child:
+
+
+         Column(
+           children: [
+             Container(
+               width:mediaSize.width*0.9,
+                 decoration: BoxDecoration(
+                   borderRadius: BorderRadius.circular(20),
+                   color: Colors.grey.withOpacity(0.1),),
+               child:Padding(
+                 padding: const EdgeInsets.all(8.0),
+                 child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                   Padding(
+                     padding: const EdgeInsets.all(8.0),
+                     child: Row(
+                       children: [
+                         Text(name,style: TextStyle(fontSize:16,decoration: TextDecoration.underline,),),
+                         Text("　　　11/19(火) 16:28",)
+                       ],
+                     ),
+                   ),
+                   Padding(
+                     padding: const EdgeInsets.only(bottom:8.0,left:8.0,right:8.0),
+                     child: Text(comment,overflow: TextOverflow.clip,textAlign: TextAlign.left,),
+                   ),
+
+                 ],),
+               )
+             ),
+             CustomPaint(
+               painter: TrianglePainter(),
+               child: Container(
+                   height: 20
+               ),
+             ),
+           ],
          ),
-         Padding(
-           padding: const EdgeInsets.only(bottom:8.0,left:8.0,right:8.0),
-           child: Text(comment,overflow: TextOverflow.clip,textAlign: TextAlign.left,),
-         )
-       ],)
-     ),
+
+
+
    );
   }
 }
@@ -72,5 +102,28 @@ List<Map<String ,String>> commentList=[
 
 ];
 
+class TrianglePainter extends CustomPainter {
 
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint = Paint();
+
+    paint.color = Colors.transparent;
+    var rect = Rect.fromLTWH(0, 0, size.width, size.height);
+    canvas.drawRect(rect, paint);
+
+    // 三角（塗りつぶし）
+    paint.color = Colors.grey.withOpacity(0.1);
+    var path = Path();
+    path.moveTo(size.width / 10, 0);
+    path.lineTo(size.width / 15, size.height );
+    path.lineTo(size.width / 4, 0);
+    path.close();
+    canvas.drawPath(path, paint);
+
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
 

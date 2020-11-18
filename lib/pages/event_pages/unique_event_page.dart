@@ -2,10 +2,12 @@
 import 'package:asoble_app/models/unique_event_model.dart';
 import 'package:asoble_app/setup/welcome.dart';
 import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:provider/provider.dart';
-import 'package:toggle_switch/toggle_switch.dart';
+
 
 import 'event_comments_widget.dart';
 import 'event_info_widget.dart';
@@ -20,11 +22,19 @@ class UniqueEventPage extends StatelessWidget {
   UniqueEventPage({this.partyName, this.partyInfo, this.index});
 
 
+  int selectedIndex=0;
+  Color toggleInfoColor=Colors.lightBlueAccent;
+  Color toggleCommentsColor= Colors.grey;
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Consumer<UniqueEventModel>(
+
         builder: (context, model, child) {
           return Stack(
             children: [
@@ -79,32 +89,58 @@ class UniqueEventPage extends StatelessWidget {
                     SliverStickyHeader(
                         header: Padding(
                           padding: const EdgeInsets.only(top: 16.0),
-                          child: Center(
-                            child: ToggleSwitch(
-                              minWidth: 90,
-                              cornerRadius: 10.0,
-                              activeBgColor: Colors.cyan,
-                              activeFgColor: Colors.white,
-                              inactiveBgColor: Colors.grey,
-                              inactiveFgColor: Colors.white,
-                              labels: ['詳細情報', 'コメント'],
-                              onToggle: (index) {
-                                model.changeUniqueEventPage(index);
-                              },
-                            ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      selectedIndex = 0;
+                                      toggleInfoColor=Colors.lightBlueAccent;
+                                      toggleCommentsColor=Colors.grey;
+                                      model.changeUniqueEventPage(0);
+                                    },
+                                      child:Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(topLeft: Radius.circular(10),bottomLeft: Radius.circular(10),),
+                                          color: toggleInfoColor,),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Text("詳細情報"),
+                                        ),
+                                      )),
+                                  GestureDetector(
+
+                                    onTap: () {
+                                      selectedIndex = 1;
+                                      toggleCommentsColor=Colors.lightBlueAccent;
+                                      toggleInfoColor=Colors.grey;
+                                      model.changeUniqueEventPage(1);
+                                    },
+                                        child:Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.only(topRight: Radius.circular(10),bottomRight: Radius.circular(10),),
+                                            color: toggleCommentsColor,),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Text("コメント"),
+                                          ),
+                                        )),
+                                  ],
+                              ),
+
                           ),
-                        ),
+
 
                         sliver: model.selectedIndex == 0 ?
                                     EventInfoWidget()
                                 :model.selectedIndex == 1 ?
                                     EventCommentsWidget()
                                 :Container()
-
                     )
                   ],
                 ),
               ),
+
               Align(
                 alignment: AlignmentDirectional.bottomCenter,
                 child: Container(
@@ -125,6 +161,7 @@ class UniqueEventPage extends StatelessWidget {
                   ),
                 ),
               ),
+
               Align(
                 alignment: AlignmentDirectional.bottomCenter,
                 child: Padding(
@@ -142,6 +179,8 @@ class UniqueEventPage extends StatelessWidget {
               ),
             ],
           );
-        }));
+        })
+    );
+
   }
 }

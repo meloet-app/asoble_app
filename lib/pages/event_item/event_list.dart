@@ -23,7 +23,7 @@ class CurrentPartyListWidget extends StatelessWidget {
               Navigator.push(
                   context,
                   CupertinoPageRoute(
-                      builder: (context) => UniqueEventPage(
+                      builder: (context) => new UniqueEventPage(
                           partyName: partyName,
                           partyInfo: partyInfo,
                           index: MyHomePage.carouselIndex)));
@@ -111,16 +111,6 @@ class CurrentPartyListWidget extends StatelessWidget {
                                 ],
                               ),
                             ),
-
-                            /* Container(
-                                    color: Colors.black.withOpacity(0.7),
-
-                                    constraints: BoxConstraints.expand(
-                                      height: mediaSize.height*0.25*0.25,),
-                                    child: FlatButton(onPressed: null,
-                                        child: Text("詳細",
-                                          style: TextStyle(fontWeight:FontWeight.bold,color:Colors.white),
-                                        ))),*/
                           ]),
                     ),
                   ),

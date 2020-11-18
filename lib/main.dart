@@ -21,7 +21,6 @@ void main() {
         ),
         ChangeNotifierProvider(create: (_) => SelectIfCalenderModel()),
         ChangeNotifierProvider(create: (_) => UniqueEventModel()),
-
       ],
       child: MyApp(),
     ),

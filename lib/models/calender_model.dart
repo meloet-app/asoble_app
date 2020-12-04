@@ -11,3 +11,31 @@ class SelectIfCalenderModel extends ChangeNotifier{
     notifyListeners();
   }
 }
+
+class CalendarDialogModel extends ChangeNotifier{
+  DateTime selectedDay = DateTime.now();
+
+  void onCalendarCellTap(day){
+
+    selectedDay = day;
+    print(selectedDay);
+    notifyListeners();
+
+}
+
+  void dialogDayForward() {
+
+    selectedDay.add(Duration(days: 1));
+    print(selectedDay);
+    notifyListeners();
+
+  }
+
+  void dialogDayBack() {
+
+    selectedDay.add(Duration(days:-1));
+    print(selectedDay);
+    notifyListeners();
+
+  }
+}

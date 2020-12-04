@@ -33,10 +33,7 @@ class UniqueEventPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<UniqueEventModel>(
-
-        builder: (context, model, child) {
-          return Stack(
+      body: Stack(
             children: [
               Container(
                 height: mediaSize.height - 85,
@@ -89,7 +86,9 @@ class UniqueEventPage extends StatelessWidget {
                     SliverStickyHeader(
                         header: Padding(
                           padding: const EdgeInsets.only(top: 16.0),
-                              child: Row(
+                              child: Consumer<UniqueEventModel>(
+                                  builder: (context, model, child) {
+                                    return Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   GestureDetector(
@@ -124,18 +123,24 @@ class UniqueEventPage extends StatelessWidget {
                                             padding: const EdgeInsets.all(10.0),
                                             child: Text("コメント"),
                                           ),
-                                        )),
+                                        )
+                                  ),
                                   ],
-                              ),
+                              );}
+                              )),
 
-                          ),
 
-
-                        sliver: model.selectedIndex == 0 ?
-                                    EventInfoWidget()
+                        sliver: Consumer<UniqueEventModel>(
+                                builder: (context, model, child) {
+                                  Widget selectedWidget;
+                                model.selectedIndex == 0 ?
+                                selectedWidget = EventInfoWidget()
                                 :model.selectedIndex == 1 ?
-                                    EventCommentsWidget()
-                                :Container()
+                                selectedWidget = EventCommentsWidget()
+                                :selectedWidget = Container();
+                                model.clearUniqueEventIndex();
+                                return selectedWidget;
+                                })
                     )
                   ],
                 ),
@@ -178,9 +183,8 @@ class UniqueEventPage extends StatelessWidget {
                 ),
               ),
             ],
-          );
-        })
-    );
+          ));
+
 
   }
 }

@@ -1,23 +1,16 @@
 
-
-
 import 'package:asoble_app/setup/welcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EventCommentsWidget extends StatelessWidget {
-  List <Widget> chin = [Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Container(color: Colors.grey,height: 200,),
-  ),Container(color: Colors.grey,height: 200,)];
-
   @override
   Widget build(BuildContext context) {
     return
       SliverList(
-          delegate: SliverChildListDelegate(commentsListWidget()));
-
-
+          delegate: SliverChildListDelegate(
+              commentsListWidget()
+          ));
 
   }
 }
@@ -53,7 +46,7 @@ class CommentWidget extends StatelessWidget{
                width:mediaSize.width*0.9,
                  decoration: BoxDecoration(
                    borderRadius: BorderRadius.circular(20),
-                   color: Colors.grey.withOpacity(0.1),),
+                   color: Colors.grey.withOpacity(0.2),),
                child:Padding(
                  padding: const EdgeInsets.all(8.0),
                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +106,7 @@ class TrianglePainter extends CustomPainter {
     canvas.drawRect(rect, paint);
 
     // 三角（塗りつぶし）
-    paint.color = Colors.grey.withOpacity(0.1);
+    paint.color = Colors.grey.withOpacity(0.2);
     var path = Path();
     path.moveTo(size.width / 10, 0);
     path.lineTo(size.width / 15, size.height );

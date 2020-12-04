@@ -10,8 +10,9 @@ class CurrentPartyListWidget extends StatelessWidget {
   String partyName;
   String partyInfo;
   int index;
+  bool timeDisplay;
 
-  CurrentPartyListWidget({this.partyName, this.partyInfo, this.index});
+  CurrentPartyListWidget({this.partyName, this.partyInfo, this.index,this.timeDisplay});
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +115,7 @@ class CurrentPartyListWidget extends StatelessWidget {
                           ]),
                     ),
                   ),
-                  Align(
+                  timeDisplay==true ? Align(
                     alignment: AlignmentDirectional.topStart,
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
@@ -150,7 +151,8 @@ class CurrentPartyListWidget extends StatelessWidget {
                             style: TextStyle(color: Colors.white),
                           ))),
                     ),
-                  ),
+                  ):
+                  Container(),
                 ],
               ),
             )),
@@ -159,15 +161,16 @@ class CurrentPartyListWidget extends StatelessWidget {
   }
 }
 
+
 List<Widget> currentPartyList = [
   CurrentPartyListWidget(
-      partyName: "ZOOM飲み！！！", partyInfo: "11/13 19:00〜", index: 10),
+      partyName: "ZOOM飲み！！！", partyInfo: "11/13 19:00〜", index: 10,timeDisplay: true,),
   CurrentPartyListWidget(
-      partyName: "有楽町でしっぽり！！！", partyInfo: "11/13 19:00〜", index: 11),
+      partyName: "有楽町でしっぽり！！！", partyInfo: "11/13 19:00〜", index: 11,timeDisplay: true),
   CurrentPartyListWidget(
-      partyName: "歌舞伎町でバチコり！！！", partyInfo: "11/13 19:00〜", index: 12),
+      partyName: "歌舞伎町でバチコり！！！", partyInfo: "11/13 19:00〜", index: 12,timeDisplay: true),
   CurrentPartyListWidget(
       partyName: "多摩センターでゲロのみ！！！多摩センターでゲロのみ！！！多摩センターでゲロのみ！！！",
       partyInfo: "11/13 19:00〜",
-      index: 13),
+      index: 13,timeDisplay: true),
 ];

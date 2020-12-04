@@ -1,15 +1,17 @@
-import 'package:flutter/cupertino.dart';
+import 'package:asoble_app/pages/unique_friend_page/friend_profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'navigation_bar/navigation_bar.dart';
+
 
 class FriendPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWithDropDown(),
-      body: Container(child: Center(child: friendListWidget())),
+      appBar: AppBarWithDropDown(context),
+      body: Container(
+          child: Center(
+              child: friendListWidget())),
     );
   }
 
@@ -23,7 +25,10 @@ class FriendPage extends StatelessWidget {
   }
 }
 
+
 class FriendCard extends StatelessWidget {
+
+
   String name;
   bool isFree;
   Color userColor;
@@ -32,44 +37,51 @@ class FriendCard extends StatelessWidget {
 
   Color indicatorColor = const Color(0xff33CC10);
 
+
   @override
   Widget build(BuildContext context) {
     return new GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+           CupertinoPageRoute(
+                builder: (context) => FriendProfilePage(userName: name,userColor: userColor,userIsFree: isFree,) ));
+      },
       child: Card(
           child: Row(
         children: [
-          Container(
-            height: 80,
-            width: 80,
-            child: Stack(
-              children: [
-                Center(
-                  child: Container(
-                    margin:
-                        EdgeInsets.only(left: 6, top: 6, right: 12, bottom: 6),
-                    height: 60,
-                    width: 60,
-                    decoration: BoxDecoration(
-                        color: Colors.blueAccent[100],
-                        border: Border.all(color: userColor, width: 2),
-                        borderRadius: BorderRadius.circular(60)),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Container(
-                      margin: EdgeInsets.only(top: 12, right: 12),
-                      height: 16,
-                      width: 16,
+            Container(
+              height: 80,
+              width: 80,
+              child: Stack(
+                children: [
+                  Center(
+                    child: Container(
+                      margin:
+                      EdgeInsets.only(left: 6, top: 6, right: 12, bottom: 6),
+                      height: 60,
+                      width: 60,
                       decoration: BoxDecoration(
-                          color: isFree ? indicatorColor : Colors.grey,
-                          border: Border.all(color: Colors.white, width: 2),
-                          borderRadius: BorderRadius.circular(16))),
-                ),
-              ],
+                          color: Colors.blueAccent[100],
+                          border: Border.all(color: userColor, width: 2),
+                          borderRadius: BorderRadius.circular(60)),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Container(
+                        margin: EdgeInsets.only(top: 12, right: 12),
+                        height: 16,
+                        width: 16,
+                        decoration: BoxDecoration(
+                            color: isFree ? indicatorColor : Colors.grey,
+                            border: Border.all(color: Colors.white, width: 2),
+                            borderRadius: BorderRadius.circular(16))),
+                  ),
+                ],
             ),
           ),
-          Text(name), //ユーザーネーム
+              Text(name), //ユーザーネーム
         ],
       )),
     );

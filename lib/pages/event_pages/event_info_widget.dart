@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 class EventInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SliverList(
+    return
+      SliverList(
         delegate: SliverChildListDelegate(
-
             <Widget>[
       Padding(
         padding: const EdgeInsets.only(

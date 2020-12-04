@@ -30,7 +30,9 @@ class EventCarousel extends StatelessWidget {
                 onPageChanged: (index, reason) {
                   model.changeEventCarousel(index);
                   MyHomePage.carouselIndex = index;
-                })),
+                }
+                )
+        ),
       );
     });
   }

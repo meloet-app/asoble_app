@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'models/current_event_model.dart';
+import 'models/input_asoble_info_model.dart';
 import 'models/select_community_model.dart';
 
 void main() {
@@ -21,6 +22,8 @@ void main() {
         ),
         ChangeNotifierProvider(create: (_) => SelectIfCalenderModel()),
         ChangeNotifierProvider(create: (_) => UniqueEventModel()),
+        ChangeNotifierProvider(create: (_) => InputAsobleInfoModel()),
+        ChangeNotifierProvider(create: (_) => CalendarDialogModel()),
       ],
       child: MyApp(),
     ),

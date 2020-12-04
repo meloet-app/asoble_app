@@ -19,18 +19,6 @@ class MyProfilePage extends StatelessWidget {
                       image: new DecorationImage(
                           fit: BoxFit.fitWidth,
                           image: new AssetImage("lib/assets/demo2.jpeg")))),
-              SafeArea(
-                child: Align(
-                  alignment: AlignmentDirectional.topEnd,
-                  child: FloatingActionButton(
-                      child: Icon(
-                        Icons.notifications,
-                        color: Colors.white,
-                        size: 40,
-                      ),
-                      onPressed: null),
-                ),
-              ),
               Align(
                 alignment: AlignmentDirectional.bottomCenter,
                 child: Container(
@@ -43,7 +31,13 @@ class MyProfilePage extends StatelessWidget {
                             fit: BoxFit.fill,
                             image:
                                 new AssetImage("lib/assets/user_icon1.jpg")))),
-              )
+              ),
+              SafeArea(child: FloatingActionButton(
+                backgroundColor: Colors.blue.withOpacity(0.9),
+                heroTag: "heroMyProfileBack",
+                child:Icon(Icons.arrow_back),
+                onPressed: ()=>Navigator.pop(context),
+              ))
             ],
           ),
         ),
@@ -171,6 +165,7 @@ Widget ProfileSliverAppBar() {
       backgroundColor: Colors.white70,
       expandedHeight: mediaSize.height * 0.25,
       elevation: 0,
+
       flexibleSpace: FlexibleSpaceBar(
         background: Image(
           image: AssetImage("lib/assets/demo2.jpeg"),

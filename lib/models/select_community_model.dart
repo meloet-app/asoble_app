@@ -6,10 +6,29 @@ import 'package:flutter/cupertino.dart';
 
 class SelectCommunityModel extends ChangeNotifier{
   int selectedCommunityIndex = 0;
+  int wkSelectedCommunityIndex =0;
 
-  void changeCommunity(String selectedItem){
-    selectedCommunityIndex = CommunityDisplayList.indexWhere((item) => item == selectedItem);
+  void changeCommunity(){
+    selectedCommunityIndex = wkSelectedCommunityIndex;
 
     notifyListeners();
   }
+
+  void wkChangeCommunity(int selectedItem){
+    wkSelectedCommunityIndex = selectedItem;
+
+    notifyListeners();
+  }
+
+  void changeCommunityBackButton(){
+    wkSelectedCommunityIndex = selectedCommunityIndex ;
+
+    notifyListeners();
+  }
+
+  /*void changeCommunity(String selectedItem){
+    selectedCommunityIndex = CommunityDisplayList.indexWhere((item) => item == selectedItem);
+
+    notifyListeners();
+  }*/
 }

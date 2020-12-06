@@ -1,92 +1,41 @@
 import 'package:asoble_app/pages/unique_friend_page/friend_profile_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'friend_item/friend_card.dart';
 import 'navigation_bar/navigation_bar.dart';
 
+//===============フレンドページ=====================
 
 class FriendPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWithDropDown(context),
-      body: Container(
-          child: Center(
-              child: friendListWidget())),
+      body: Container(child: Center(child: friendListWidget())),
     );
   }
 
+  //-------------フレンドの繰り返し表示メソッド----------------
   Widget friendListWidget() {
-    List<Widget> widgetList = new List<Widget>();
-    for (var i = 0; i < list.length; i++) {
-      widgetList.add(new FriendCard(
+
+    List<Widget> widgetList = new List<Widget>();//このリストにループで作成したウィジェットをぶち込む
+
+    for (var i = 0; i < list.length; i++) {  //フレンドListの長さ分だけループ、
+      widgetList.add(new FriendCard(         //class:フレンドカードをリストに追加
           name: list[i], isFree: freelist[i], userColor: borderColorlist[i]));
     }
-    return new ListView(children: widgetList);
+    return new ListView(children: widgetList);  //フレンドページに返す
   }
+//-------------フレンドの繰り返し表示メソッド　以上----------------
+
 }
 
 
-class FriendCard extends StatelessWidget {
+//===============フレンドページ 以上=====================
 
 
-  String name;
-  bool isFree;
-  Color userColor;
-
-  FriendCard({this.name, this.isFree, this.userColor});
-
-  Color indicatorColor = const Color(0xff33CC10);
 
 
-  @override
-  Widget build(BuildContext context) {
-    return new GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-           CupertinoPageRoute(
-                builder: (context) => FriendProfilePage(userName: name,userColor: userColor,userIsFree: isFree,) ));
-      },
-      child: Card(
-          child: Row(
-        children: [
-            Container(
-              height: 80,
-              width: 80,
-              child: Stack(
-                children: [
-                  Center(
-                    child: Container(
-                      margin:
-                      EdgeInsets.only(left: 6, top: 6, right: 12, bottom: 6),
-                      height: 60,
-                      width: 60,
-                      decoration: BoxDecoration(
-                          color: Colors.blueAccent[100],
-                          border: Border.all(color: userColor, width: 2),
-                          borderRadius: BorderRadius.circular(60)),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                        margin: EdgeInsets.only(top: 12, right: 12),
-                        height: 16,
-                        width: 16,
-                        decoration: BoxDecoration(
-                            color: isFree ? indicatorColor : Colors.grey,
-                            border: Border.all(color: Colors.white, width: 2),
-                            borderRadius: BorderRadius.circular(16))),
-                  ),
-                ],
-            ),
-          ),
-              Text(name), //ユーザーネーム
-        ],
-      )),
-    );
-  }
-}
 
 //============テスト=============
 

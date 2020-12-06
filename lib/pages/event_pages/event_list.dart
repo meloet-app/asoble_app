@@ -2,9 +2,10 @@ import 'package:asoble_app/setup/welcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'event_item/event_list.dart';
-import 'navigation_bar/navigation_bar.dart';
+import '../event_item/event_list.dart';
+import '../navigation_bar/navigation_bar.dart';
 
+//=======================イベントページ ============================
 
 class EventPage extends StatelessWidget {
   int _current = 0;
@@ -23,7 +24,7 @@ class EventPage extends StatelessWidget {
   }
 
 
-
+//------------------------繰り返し処理--------------------------
   Widget friendListWidget() {
     List<Widget> widgetList = new List<Widget>();
     for (var i = 0; i < currentCommunityPartyList.length; i++) {
@@ -35,12 +36,15 @@ class EventPage extends StatelessWidget {
     }
     return new ListView(children: widgetList);
   }
-
+//------------------------繰り返し処理--------------------------
 
 }
 
+//=======================イベントページ  以上============================
 
 
+
+//=======================イベント時間＋イベントカード===============================
 class EventCard extends StatelessWidget {
 
   String eventName;
@@ -69,7 +73,7 @@ class EventCard extends StatelessWidget {
           Container(
             height: mediaSize.height*0.25,
               width: mediaSize.width*0.65,
-              child: CurrentPartyListWidget(
+              child: CurrentPartyListWidget(         //イベントテンプレート
                 partyInfo: time,
                 partyName: eventName,
                 index: index,
@@ -80,8 +84,11 @@ class EventCard extends StatelessWidget {
     );
   }
 }
+//=======================イベント時間＋イベントカード===============================
 
 
+
+//======================テスト==========================
 
 List<List> currentCommunityPartyList = [
   ["ZOOM飲み！！！", "PM 7:00 〜", 10],

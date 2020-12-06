@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 
-import '../calender_page.dart';
-import '../event_list.dart';
+import '../calendar/calendar_page.dart';
+import '../event_pages/event_list.dart';
 import '../friend_list.dart';
 import '../my_profile_page.dart';
 import 'community_dropdown.dart';
@@ -20,12 +20,13 @@ class NavigationBar extends StatefulWidget {
 
 
 class NavigationBarState extends State<NavigationBar> {
+
   static List<Widget> _pageList = [
     MyHomePage(),
     FriendPage(),
     MainChatPage(),
     EventPage(),
-    CalenderPage(),
+    CalendarPage(),
   ];
 
   var _navIndex = 0;

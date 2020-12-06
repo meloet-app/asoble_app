@@ -29,7 +29,7 @@ class EventCarousel extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 onPageChanged: (index, reason) {
                   model.changeEventCarousel(index);
-                  MyHomePage.carouselIndex = index;
+                  MyHomePage().carouselIndex = index;
                 }
                 )
         ),
@@ -37,3 +37,35 @@ class EventCarousel extends StatelessWidget {
     });
   }
 }
+
+class EventCarouselIndicator extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return
+      Padding(
+        padding: const EdgeInsets.only(bottom: 16.0),
+        child: new Consumer<EventCarouselModel>(
+            builder: (context, model, child) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: currentPartyList.map((widget) {
+                  int index = currentPartyList.indexOf(widget);
+                  return Container(
+                    width: 6.0,
+                    height: 6.0,
+                    margin: EdgeInsets.symmetric(horizontal: 2.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: model.selectedEventCarouselIndex == index
+                          ? Color.fromRGBO(0, 0, 0, 0.9)
+                          : Color.fromRGBO(0, 0, 0, 0.4),
+                    ),
+                  );
+                }).toList(),
+              );
+            }),
+      )
+    ;
+
+  }
+  }

@@ -1,4 +1,4 @@
-import 'package:asoble_app/pages/calender_page.dart';
+import 'package:asoble_app/pages/calendar/calendar_page.dart';
 import 'package:asoble_app/pages/my_home_page.dart';
 import 'package:flutter/cupertino.dart';
 

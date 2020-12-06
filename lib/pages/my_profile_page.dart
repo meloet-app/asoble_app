@@ -158,30 +158,3 @@ class MyProfilePage extends StatelessWidget {
     ));
   }
 }
-
-Widget ProfileSliverAppBar() {
-  return SliverAppBar(
-      floating: true,
-      pinned: true,
-      snap: false,
-      backgroundColor: Colors.white70,
-      expandedHeight: mediaSize.height * 0.25,
-      elevation: 0,
-
-      flexibleSpace: FlexibleSpaceBar(
-        background: Image(
-          image: AssetImage("lib/assets/demo2.jpeg"),
-          fit: BoxFit.cover,
-        ),
-      ),
-      centerTitle: true,
-      title: Container(
-          decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.6),
-              borderRadius: BorderRadius.circular(10)),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('User_Name'),
-          )),
-      actions: <Widget>[]);
-}

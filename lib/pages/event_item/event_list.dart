@@ -1,10 +1,10 @@
 import 'package:asoble_app/pages/event_pages/unique_event_page.dart';
-import 'package:asoble_app/setup/welcome.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../my_home_page.dart';
+
+//================================イベントカードテンプレート====================
 
 class CurrentPartyListWidget extends StatelessWidget {
   String partyName;
@@ -27,12 +27,13 @@ class CurrentPartyListWidget extends StatelessWidget {
                       builder: (context) => new UniqueEventPage(
                           partyName: partyName,
                           partyInfo: partyInfo,
-                          index: MyHomePage.carouselIndex)));
+                          index: MyHomePage().carouselIndex)));
             },
             child: Card(
               elevation: 10,
               child: Stack(
                 children: [
+                  //------------------------背景画像----------------------
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Container(
@@ -44,6 +45,7 @@ class CurrentPartyListWidget extends StatelessWidget {
                       ),
                     ),
                   ),
+                  //-------------------下グラデーション--------------------
                   Container(
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -60,6 +62,7 @@ class CurrentPartyListWidget extends StatelessWidget {
                     )),
                     constraints: BoxConstraints.expand(),
                   ),
+                  //--------------------------テキスト-------------------------
                   Container(
                     constraints: BoxConstraints.expand(),
                     child: Align(
@@ -115,43 +118,8 @@ class CurrentPartyListWidget extends StatelessWidget {
                           ]),
                     ),
                   ),
-                  timeDisplay==true ? Align(
-                    alignment: AlignmentDirectional.topStart,
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Container(
-                          height: 70,
-                          width: 70,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black26,
-                                spreadRadius: 1.0,
-                                blurRadius: 10.0,
-                                offset: Offset(2, 2),
-                              ),
-                            ],
-                            gradient: LinearGradient(
-                              begin: FractionalOffset.topLeft,
-                              end: FractionalOffset.bottomRight,
-                              colors: [
-                                Colors.lightBlueAccent.withOpacity(0.9),
-                                Colors.lightBlue.withOpacity(0.9)
-                              ],
-                              stops: const [
-                                0.4,
-                                1,
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(70),
-                          ),
-                          child: Center(
-                              child: Text(
-                            "11/13\n19:00〜",
-                            style: TextStyle(color: Colors.white),
-                          ))),
-                    ),
-                  ):
+                  //------------時間表示（ホームのみ）------------------
+                  timeDisplay == true ? TimeDisplay():
                   Container(),
                 ],
               ),
@@ -161,6 +129,59 @@ class CurrentPartyListWidget extends StatelessWidget {
   }
 }
 
+
+
+//====================イベントカードテンプレート 以上====================
+
+class TimeDisplay extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: AlignmentDirectional.topStart,
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Container(
+            height: 70,
+            width: 70,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  spreadRadius: 1.0,
+                  blurRadius: 10.0,
+                  offset: Offset(2, 2),
+                ),
+              ],
+              gradient: LinearGradient(
+                begin: FractionalOffset.topLeft,
+                end: FractionalOffset.bottomRight,
+                colors: [
+                  Colors.lightBlueAccent.withOpacity(0.9),
+                  Colors.lightBlue.withOpacity(0.9)
+                ],
+                stops: const [
+                  0.4,
+                  1,
+                ],
+              ),
+              borderRadius: BorderRadius.circular(70),
+            ),
+            child: Center(
+                child: Text(
+                  "11/13\n19:00〜",
+                  style: TextStyle(color: Colors.white),
+                ))),
+      ),
+    );
+  }
+
+}
+
+
+//======================イベントカードテンプレート 以上================
+
+
+//----------------------テスト----------------------
 
 List<Widget> currentPartyList = [
   CurrentPartyListWidget(

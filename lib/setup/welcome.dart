@@ -16,7 +16,7 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     mediaSize = size;
-    Firebase.initializeApp();
+
 
     return Scaffold(
       appBar: AppBar(

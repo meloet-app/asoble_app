@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'calendar_list_header.dart';
 import 'calendar_main.dart';
 import '../navigation_bar/navigation_bar.dart';
 
@@ -34,7 +35,7 @@ class CalendarPageState extends State<CalendarPage>
     with TickerProviderStateMixin {
 
   //---------------変数定義----------------------
-  CalendarController controller;
+  CalendarController controller = CalendarController();
   DateTime selectedDay;
 
   CalendarFormat currentFormat;
@@ -82,7 +83,7 @@ class CalendarPageState extends State<CalendarPage>
   @override
   void initState() {
     super.initState();
-    controller = CalendarController();
+
     DateTime _selectedDay = DateTime.now(); //
   }
 
@@ -131,6 +132,8 @@ class CalendarPageState extends State<CalendarPage>
                   child: MainCalendar(),
                 ),
               ),
+              CalendarListHeader(),
+
 
 
 

@@ -2,6 +2,7 @@ import 'package:asoble_app/setup/welcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../login_check.dart';
 import '../event_item/event_list.dart';
 import '../navigation_bar/navigation_bar.dart';
 
@@ -13,7 +14,7 @@ class EventPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWithDropDown(context),
+      appBar: AppBarWithDropDown(),
       body: Padding(
         padding: const EdgeInsets.only(top:32.0),
         child: Center(

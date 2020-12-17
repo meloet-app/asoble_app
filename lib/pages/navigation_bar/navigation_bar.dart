@@ -12,14 +12,18 @@ import '../my_profile_page.dart';
 import 'community_dropdown.dart';
 
 class NavigationBar extends StatefulWidget {
+  String uid;
+  NavigationBar({this.uid});
   @override
   NavigationBarState createState() {
-    return NavigationBarState();
+    return NavigationBarState(uid: uid);
   }
 }
 
 
 class NavigationBarState extends State<NavigationBar> {
+  String uid;
+  NavigationBarState({this.uid});
 
   static List<Widget> _pageList = [
     MyHomePage(),
@@ -79,22 +83,39 @@ class NavigationBarState extends State<NavigationBar> {
 
 
 
-Widget AppBarWithDropDown(context) {
-  return AppBar(
-    title: Center(child: CommunityDropdown()),
-    actions: <Widget>[
-      IconButton(
+
+
+
+class AppBarWithDropDown extends StatelessWidget implements PreferredSizeWidget{
+  AppBarWithDropDown({Key key}) : preferredSize = Size.fromHeight(kToolbarHeight), super(key: key);
+
+  @override
+  final Size preferredSize; // default is 56.0
+
+  @override
+  Widget build(BuildContext context) {
+     return AppBar(
+      title: PreferredSize(
+        preferredSize: preferredSize,
+          child: Center(
+              child: CommunityDropdown())),
+      actions: <Widget>[
+        IconButton(
           icon: Icon(
             Icons.account_circle,
             color: Colors.white,
           ),
           iconSize: 40,
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => MyProfilePage() ));
-        },)
-    ],
-  );
-}
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => MyProfilePage() ));
+          },)
+      ],
+    );
+  }
+  }
+
+
+  

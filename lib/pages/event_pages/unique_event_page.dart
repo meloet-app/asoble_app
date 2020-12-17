@@ -9,6 +9,7 @@ import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:provider/provider.dart';
 
 
+import '../../login_check.dart';
 import 'event_comments_widget.dart';
 import 'event_info_widget.dart';
 

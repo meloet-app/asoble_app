@@ -120,7 +120,7 @@ class CalendarPageState extends State<CalendarPage>
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBarWithDropDown(context),
+        appBar: AppBarWithDropDown(),
         body:SingleChildScrollView(
         child:
         Consumer<CalendarDialogModel>(builder: (context, model, child) {

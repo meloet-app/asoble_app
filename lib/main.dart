@@ -1,22 +1,29 @@
 import 'package:asoble_app/models/calender_model.dart';
 import 'package:asoble_app/models/unique_event_model.dart';
+import 'package:asoble_app/pages/navigation_bar/navigation_bar.dart';
 import 'package:asoble_app/preference/theme.dart';
 import 'package:asoble_app/setup/welcome.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'login_check.dart';
 import 'models/current_event_model.dart';
 import 'models/input_asoble_info_model.dart';
 import 'models/select_community_model.dart';
+import 'models/user_model.dart';
 
 final themeData = ThemeData(
     typography: kTypography, // fontFamily と locale が設定してあるものを指定する
 );
 
+
+
 void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(
@@ -31,13 +38,18 @@ void main() async {
         ChangeNotifierProvider(create: (_) => UniqueEventModel()),
         ChangeNotifierProvider(create: (_) => InputAsobleInfoModel()),
         ChangeNotifierProvider(create: (_) => CalendarDialogModel()),
+        ChangeNotifierProvider(create: (_) => UserModel()),
       ],
       child: MyApp(),
     ),
   );
 }
 
+
+
 class MyApp extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('ja');
@@ -58,11 +70,15 @@ class MyApp extends StatelessWidget {
             locale: Locale('ja'),
             title: 'Flutter Demo',
             theme: themeData,
-            home: WelcomePage(),
+            home: RootPage(),
+              routes: <String,WidgetBuilder>{
+              '/home':(BuildContext context) => NavigationBar(),
+              '/welcome':(BuildContext context) => WelcomePage(),
+              },
           );
         }
         // Firebaseのinitializeが完了するのを待つ間に表示するWidget
-        return Container(color: Colors.green,);
+        return Container();
       },
     );
 

@@ -2,6 +2,8 @@ import 'package:asoble_app/setup/welcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../login_check.dart';
+
 
 
 class MyProfilePage extends StatelessWidget {

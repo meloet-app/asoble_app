@@ -1,6 +1,8 @@
 import 'package:asoble_app/setup/welcome.dart';
 import 'package:flutter/material.dart';
 
+import '../../login_check.dart';
+
 
 class EventInfoWidget extends StatelessWidget {
   @override

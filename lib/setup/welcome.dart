@@ -4,7 +4,9 @@ import 'package:asoble_app/setup/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-Size mediaSize;
+import '../login_check.dart';
+
+
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -12,11 +14,10 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    mediaSize = size;
-
+    mediaSizeDefine(context);
 
     return Scaffold(
       appBar: AppBar(

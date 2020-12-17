@@ -10,7 +10,7 @@ class FriendPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWithDropDown(context),
+      appBar: AppBarWithDropDown(),
       body: Container(child: Center(child: friendListWidget())),
     );
   }

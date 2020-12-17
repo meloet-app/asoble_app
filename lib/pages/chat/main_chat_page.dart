@@ -4,6 +4,8 @@ import 'package:asoble_app/setup/welcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../login_check.dart';
+
 
 class MainChatPage extends StatefulWidget{
   MainChatPageState createState() => MainChatPageState();
@@ -17,7 +19,7 @@ class MainChatPageState extends State<MainChatPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWithDropDown(context),
+      appBar: AppBarWithDropDown(),
       body:Column(
         children: [
 

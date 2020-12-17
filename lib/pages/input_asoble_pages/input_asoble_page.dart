@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../login_check.dart';
 import 'input_asoble_dialogs.dart';
 
 class notify_Asoble extends StatelessWidget {
@@ -17,7 +18,6 @@ class notify_Asoble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       resizeToAvoidBottomInset: false,
       body: new Consumer<InputAsobleInfoModel>(
           builder: (context, model, child) {

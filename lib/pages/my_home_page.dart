@@ -1,9 +1,12 @@
 import 'package:asoble_app/models/current_event_model.dart';
 import 'package:asoble_app/models/input_asoble_info_model.dart';
 import 'package:asoble_app/setup/welcome.dart';
+import 'package:asoble_app/test/test_console.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../login_check.dart';
 import 'event_item/event_carousel.dart';
 import 'event_item/event_list.dart';
 import 'input_asoble_pages/input_asoble_page.dart';
@@ -39,14 +42,20 @@ List<String> CommunityDisplayList = ["全員", "コミュニティ１コミュ�
 
 class MyHomePage extends StatelessWidget {
 
+
+
+
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
   int carouselIndex = 0;
 
+
+
   @override
   Widget build(BuildContext context) {
+    mediaSizeDefine(context);
     return Scaffold(
-      appBar: AppBarWithDropDown(context), //class:ドロップダウンありヘッダー
+      appBar: AppBarWithDropDown(), //class:ドロップダウンありヘッダー
       body: Center(
         child: Wrap(
           children: [
@@ -57,9 +66,28 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
+
+
+      //====================TEST=====================
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+            Icons.wifi
+        ),
+        onPressed: ()=>  Navigator.push(
+        context,
+    MaterialPageRoute(
+    builder: (context) => DataBaseTestPage(),))
+      ),
+      //=====================TEST=====================
+
     );
+
   }
 }
+
+
+
+
 //======================================ホームページ　以上==================================
 
 

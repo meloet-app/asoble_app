@@ -28,9 +28,6 @@ class UniqueEventPage extends StatelessWidget {
   Color toggleCommentsColor= Colors.grey;
 
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

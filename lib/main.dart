@@ -1,5 +1,6 @@
 import 'package:asoble_app/models/calender_model.dart';
 import 'package:asoble_app/models/unique_event_model.dart';
+import 'package:asoble_app/pages/from_profile_pages/add_freind_page.dart';
 import 'package:asoble_app/pages/navigation_bar/navigation_bar.dart';
 import 'package:asoble_app/preference/theme.dart';
 import 'package:asoble_app/setup/welcome.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'login_check.dart';
+import 'models/clip_board_model.dart';
 import 'models/current_event_model.dart';
 import 'models/input_asoble_info_model.dart';
 import 'models/select_community_model.dart';
@@ -39,6 +41,8 @@ void main() async {
         ChangeNotifierProvider(create: (_) => InputAsobleInfoModel()),
         ChangeNotifierProvider(create: (_) => CalendarDialogModel()),
         ChangeNotifierProvider(create: (_) => UserModel()),
+        ChangeNotifierProvider(create: (_) => GetClipBoardModel()),
+        ChangeNotifierProvider(create: (_) => RequestDialogTextModel()),
       ],
       child: MyApp(),
     ),
@@ -78,7 +82,7 @@ class MyApp extends StatelessWidget {
           );
         }
         // Firebaseのinitializeが完了するのを待つ間に表示するWidget
-        return Container();
+        return Center(child: CircularProgressIndicator());
       },
     );
 

@@ -95,6 +95,7 @@ class AppBarWithDropDown extends StatelessWidget implements PreferredSizeWidget{
   @override
   Widget build(BuildContext context) {
      return AppBar(
+       leading: null,
       title: PreferredSize(
         preferredSize: preferredSize,
           child: Center(

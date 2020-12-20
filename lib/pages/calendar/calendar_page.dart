@@ -89,7 +89,6 @@ class CalendarPageState extends State<CalendarPage>
 
 
 
-  @override
   onDaySelected(DateTime day, List events, List holidays) {
     print('CALLBACK: _onDaySelectedcd ');
 

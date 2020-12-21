@@ -1,7 +1,10 @@
 import 'package:asoble_app/pages/unique_friend_page/friend_profile_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../firebase_var.dart';
 import 'friend_item/friend_card.dart';
+import 'friend_item/friend_face_icon.dart';
 import 'navigation_bar/navigation_bar.dart';
 
 //===============フレンドページ=====================
@@ -11,7 +14,15 @@ class FriendPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWithDropDown(),
-      body: Container(child: Center(child: friendListWidget())),
+      body: Container(child: Center(child: Column(
+        children: [
+          RaisedButton(
+          child:Text("フレンド申請一覧"),
+            onPressed:()=>Navigator.push(context, MaterialPageRoute(builder: (context) => RequestedFriend())),
+          ),
+          friendListWidget(),
+        ],
+      ))),
     );
   }
 
@@ -24,9 +35,60 @@ class FriendPage extends StatelessWidget {
       widgetList.add(new FriendCard(         //class:フレンドカードをリストに追加
           name: list[i], isFree: freelist[i], userColor: borderColorlist[i]));
     }
-    return new ListView(children: widgetList);  //フレンドページに返す
+    return Flexible(
+      child: new ListView(
+          shrinkWrap: true,
+          children: widgetList),
+    );  //フレンドページに返す
   }
 //-------------フレンドの繰り返し表示メソッド　以上----------------
+
+}
+
+class RequestedFriend extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar:AppBar(title:Text("フレンド申請一覧")),
+        body:Column(
+          children: [
+            FutureBuilder<QuerySnapshot>(   //SnapShotではないときはFutureBuilderとget()とfuture:
+      // 投稿メッセージ一覧を取得（非同期処理）
+      // 投稿日時でソート
+            future: FirebaseFirestore.instance.collection("friendRequests").doc(uid).collection("requestFrom").orderBy("createdAt").get(),
+            builder: (context, snapshot) {
+              // データが取得できた場合
+              if (snapshot.hasData) {
+                final List<DocumentSnapshot> documents =
+                    snapshot.data.docs;
+                // 取得した投稿メッセージ一覧を元にリスト表示
+                return
+                  Flexible(
+                    child: ListView(
+                    shrinkWrap: true,
+                    children: documents.map((document) {
+                      if(document['status']==0){
+                        final DateTime requestDate = document['createdAt'];
+                      return Card(
+                        child: ListTile(
+                      leading: FriendFaceIcon(),
+                          title: Text(document['name']),
+                          subtitle: Text(requestDate.year.toString()+"年"+requestDate.month.toString()+"/"+requestDate.day.toString()+"に申請されています。"),
+                        ),
+                      );
+                    }}).toList(),
+                ),
+                  );
+              }
+
+
+              // データが読込中の場合
+              return Center(
+                child: Text('読込中...'),
+              );}),
+          ],
+        ));
+  }
 
 }
 

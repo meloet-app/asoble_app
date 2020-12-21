@@ -42,7 +42,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => CalendarDialogModel()),
         ChangeNotifierProvider(create: (_) => UserModel()),
         ChangeNotifierProvider(create: (_) => GetClipBoardModel()),
-        ChangeNotifierProvider(create: (_) => RequestDialogTextModel()),
+
       ],
       child: MyApp(),
     ),

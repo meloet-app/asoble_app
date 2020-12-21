@@ -42,9 +42,6 @@ List<String> CommunityDisplayList = ["全員", "コミュニティ１コミュ�
 
 class MyHomePage extends StatelessWidget {
 
-
-
-
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
   int carouselIndex = 0;

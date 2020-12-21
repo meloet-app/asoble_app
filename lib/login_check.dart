@@ -25,7 +25,6 @@ class RootPage extends StatefulWidget {
 final currentUser = FirebaseAuth.instance.currentUser;
 class RootPageState extends State<RootPage> {
 
-
   @override
   initState() {
     super.initState();

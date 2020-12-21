@@ -124,7 +124,7 @@ class AddFriendIDPage extends StatelessWidget {
                     showFindErrorDialog(context);
                     }else if(friendID==uid){
                     showMyIDErrorDialog(context);
-                    }else{
+                    }else {
                       await friendRequestConfirm(friendID, context);}
                   },
                 ),
@@ -175,9 +175,8 @@ class AddFriendIDPage extends StatelessWidget {
     showDialog(
         context: context,
         builder: (_) {
-          return Consumer<RequestDialogTextModel>(
-            builder: (context,model,child) {
-              return SimpleDialog(title: Text(model.dialogText),
+
+              return SimpleDialog(title: Text("フレンド申請"),
                 children: [
                 FutureBuilder<DocumentSnapshot>(
                     //SnapShotではないときはFutureBuilderとget()とfuture:
@@ -189,8 +188,9 @@ class AddFriendIDPage extends StatelessWidget {
                     builder: (context, document) {
                       print(document.data);
                         // データが取得できた場合
-                     if  (document.hasData) {
-                       model.setRequestConfirmText();
+                      if  (document.hasData) {
+
+                       var friendName =document.data["name"];
                           // 取得した投稿メッセージ一覧を元にリスト表示
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -209,7 +209,7 @@ class AddFriendIDPage extends StatelessWidget {
                                               "lib/assets/user_icon1.jpg")))),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(document.data["name"],style: TextStyle(fontSize: 20),),
+                                child: Text(friendName,style: TextStyle(fontSize: 20),),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -221,7 +221,7 @@ class AddFriendIDPage extends StatelessWidget {
                                   ),
                                   FlatButton(
                                     onPressed: () =>
-                                        friendRequest(friendID,document.data["name"], context),
+                                        friendRequest(friendID,friendName, context),
                                     child: Text("申請する"),
                                     color: Colors.blue,),
                                 ],
@@ -232,35 +232,21 @@ class AddFriendIDPage extends StatelessWidget {
                           return showFindErrorDialog(context);
                         }
                         // データが読込中の場合
-                      if(!document.hasData){
-                        model.setLoadingText();
-                      }
+
                         return Center(child:
                         CircularProgressIndicator());
                       }
                 )],);
             }
           );
-        });}
+        }
 
   }
 
-class RequestDialogTextModel extends ChangeNotifier {
-  String dialogText="読み込み中...";
-  setLoadingText(){
-    dialogText = "読み込み中...";
-    notifyListeners();
-  }
-  setRequestConfirmText(){
-    dialogText = "このアカウントに友達申請をしますか？";
-    notifyListeners();
-  }
-
-}
 
 
 
-  friendRequest(String friendID,String friendName, BuildContext context) {
+  Future<dynamic> friendRequest(String friendID,String friendName, BuildContext context) async {
     DateTime now = DateTime.now().toLocal(); // 現在の日時
 
     var requestFromDoc =  FirebaseFirestore.instance
@@ -276,23 +262,21 @@ class RequestDialogTextModel extends ChangeNotifier {
 
     if (friendID != null) {
       try {
-        FirebaseFirestore.instance.runTransaction((transaction) async {
-          transaction.set(requestFromDoc, {
-            'friendID': uid,
-            'name':userName,
-            'status': 0, //0:未承認,1:承認済み,2:拒否
-            'createdAt': now
-          });
-          transaction.set(requestToDoc, {
-            'friendID': friendID,
-            'name':friendName,
-            'status': 0, //0:未承認,1:承認済み,2:拒否
-            'createdAt': now
-          });
-
-          GetClipBoardModel().clear();
-
+        final batch = db.batch();
+        batch.set(requestFromDoc, {
+          'friendID': uid,
+          'name':userName,
+          'status': 0, //0:未承認,1:承認済み,2:拒否
+          'createdAt': now
         });
+        batch.set(requestToDoc, {
+          'friendID': friendID,
+          'name':friendName,
+          'status': 0, //0:未承認,1:承認済み,2:拒否
+          'createdAt': now
+        });
+        batch.commit();
+        GetClipBoardModel().clear();
       } catch (error) {
         print(error);
       }

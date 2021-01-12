@@ -1,9 +1,7 @@
 import 'package:asoble_app/firebase_var.dart';
 import 'package:asoble_app/login_check.dart';
 import 'package:asoble_app/models/clip_board_model.dart';
-import 'package:asoble_app/models/unique_event_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -246,43 +244,34 @@ class AddFriendIDPage extends StatelessWidget {
 
 
 
-  Future<dynamic> friendRequest(String friendID,String friendName, BuildContext context) async {
+  Future<void> friendRequest(String friendID,String friendName, BuildContext context) async {
     DateTime now = DateTime.now().toLocal(); // 現在の日時
 
-    var requestFromDoc =  FirebaseFirestore.instance
-        .collection('friendRequests') // コレクションID指定
-        .doc(friendID) // ドキュメントID自動生成
-        .collection("requestFrom")
-        .doc(uid);
-    var requestToDoc = FirebaseFirestore.instance
+    final requestToDoc = FirebaseFirestore.instance
         .collection('friendRequests') // コレクションID指定
         .doc(uid) // ドキュメントID自動生成
         .collection("requestTo")
         .doc(friendID);
 
-    if (friendID != null) {
       try {
-        final batch = db.batch();
-        batch.set(requestFromDoc, {
-          'friendID': uid,
-          'name':userName,
-          'status': 0, //0:未承認,1:承認済み,2:拒否
-          'createdAt': now
+        FirebaseFirestore.instance.runTransaction((transaction) async {
+          final requestTo = await transaction.get(requestToDoc);
+
+          if(requestTo.exists) {
+            print("申請済み");
+          }else{
+            transaction.set(requestToDoc, {
+              'friendID': friendID,
+              'name': friendName,
+              'status': 0, //0:未承認,1:承認済み,2:拒否
+              'createdAt': now
+            });
+          }
         });
-        batch.set(requestToDoc, {
-          'friendID': friendID,
-          'name':friendName,
-          'status': 0, //0:未承認,1:承認済み,2:拒否
-          'createdAt': now
-        });
-        batch.commit();
         GetClipBoardModel().clear();
       } catch (error) {
         print(error);
       }
-    } else if (friendID == null) {
-      showRequestErrorDialog(context);
-    }
   }
 
   showFindErrorDialog(context) {

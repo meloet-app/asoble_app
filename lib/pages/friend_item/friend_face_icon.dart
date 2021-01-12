@@ -17,7 +17,7 @@ class FriendFaceIcon extends StatelessWidget {  //TODO　画像埋め込み
         width: 60,
         decoration: BoxDecoration(
             color: Colors.blueAccent[100], //TODO　画像埋め込み、差し替え
-            border: Border.all(color: userColor, width: 2),
+            border: Border.all(color: Colors.blue, width: 2),
             borderRadius: BorderRadius.circular(60)),
       ),
     );

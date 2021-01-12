@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../firebase_var.dart';
+import 'friend_item/friend_asoble_indicator.dart';
 import 'friend_item/friend_card.dart';
 import 'friend_item/friend_face_icon.dart';
 import 'navigation_bar/navigation_bar.dart';
@@ -52,40 +53,77 @@ class RequestedFriend extends StatelessWidget {
       appBar:AppBar(title:Text("フレンド申請一覧")),
         body:Column(
           children: [
+            Center(child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("申請を許可してフレンドになりましょう。"),
+            )),
             FutureBuilder<QuerySnapshot>(   //SnapShotではないときはFutureBuilderとget()とfuture:
       // 投稿メッセージ一覧を取得（非同期処理）
       // 投稿日時でソート
-            future: FirebaseFirestore.instance.collection("friendRequests").doc(uid).collection("requestFrom").orderBy("createdAt").get(),
-            builder: (context, snapshot) {
-              // データが取得できた場合
-              if (snapshot.hasData) {
-                final List<DocumentSnapshot> documents =
-                    snapshot.data.docs;
-                // 取得した投稿メッセージ一覧を元にリスト表示
-                return
-                  Flexible(
-                    child: ListView(
-                    shrinkWrap: true,
-                    children: documents.map((document) {
-                      if(document['status']==0){
-                        final DateTime requestDate = document['createdAt'];
-                      return Card(
-                        child: ListTile(
-                      leading: FriendFaceIcon(),
-                          title: Text(document['name']),
-                          subtitle: Text(requestDate.year.toString()+"年"+requestDate.month.toString()+"/"+requestDate.day.toString()+"に申請されています。"),
-                        ),
-                      );
-                    }}).toList(),
-                ),
-                  );
-              }
+              future: FirebaseFirestore.instance.collection("friendRequests").doc(uid).collection("requestFrom").orderBy("createdAt").get(),
+              builder: (context, snapshot) {
+                // データが取得できた場合
+                if (snapshot.hasData) {
+                  // 取得した投稿メッセージ一覧を元にリスト表示
+                  return
+                    Expanded(
+                      child: ListView.builder(
+                      shrinkWrap: true,
+                        itemCount: snapshot.data.size,
+                        itemBuilder: (context, index) {
+                          final DocumentSnapshot _card = snapshot.data
+                              .docs[index];
+                          if (_card['status'] == 0) {
+                            final DateTime requestDate = _card['createdAt']
+                                .toDate();
+                            return
+
+                              GestureDetector(
+                                onTap: () {
+                                 return  null;
+                                },
+                                child: Card(
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height: 80,
+                                          width: 80,
+                                          child: Stack(
+                                            children: [
+                                              FriendFaceIcon(userColor:Colors.blue),   //class:トプ画顔アイコン
+                                              FriendAsobleIndicator(isFree:true)   //class:緑色インジケータ
+                                            ],
+                                          ),
+                                        ),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(bottom:4.0),
+                                              child: Text(_card['name'],style: TextStyle(fontSize: 18),),
+                                            ),
+                                            Text(requestDate.year.toString() + "/" +
+                                                requestDate.month.toString() + "/" +
+                                                requestDate.day.toString() + "に申請されています。",style: TextStyle(fontSize:12,color: Colors.grey.shade600),),
+                                          ],
+                                        ), //ユーザーネーム
+                                      ],
+                                    )),
+                              );
+                          }else {
+                            return Container(
+                            child: Text("データが取得できませんでした。"),
+                          );}
+                        }),
+                    );
+                }
 
 
-              // データが読込中の場合
-              return Center(
-                child: Text('読込中...'),
-              );}),
+                // データが読込中の場合
+                return Center(
+                  child: Text('読込中...'),
+                );}),
+
           ],
         ));
   }

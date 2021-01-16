@@ -80,7 +80,51 @@ class RequestedFriend extends StatelessWidget {
 
                               GestureDetector(
                                 onTap: () {
-                                 return  null;
+                                  showDialog(
+                                  context: context,
+                                  builder: (_) {
+                                    return SimpleDialog(title: Center(child: Text("フレンド申請を許可しますか？")),
+                                    children: [
+                                      Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                            width: 100.0,
+                                            height: 100.0,
+                                            decoration: new BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.blue, width: 2),
+                                                shape: BoxShape.circle,
+                                                image: new DecorationImage(
+                                                    fit: BoxFit.fill,
+                                                    image:
+                                                    new AssetImage(
+                                                        "lib/assets/user_icon1.jpg")))),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(_card['name'],style: TextStyle(fontSize: 20),),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            FlatButton(
+                                              onPressed: () => Navigator.pop(context),
+                                              child: Text("戻る"),
+                                              color: Colors.grey.shade500,
+                                            ),
+                                            FlatButton(
+                                              onPressed: () {
+                                                acceptFriendRequest(_card);
+                                                acceptFriendRequestCompleted(context,_card);
+
+                                              },
+                                              child: Text("許可する"),
+                                              color: Colors.blue,),
+                                          ],
+                                        )
+                                      ],
+                                      )
+                                    ]);});
                                 },
                                 child: Card(
                                     child: Row(
@@ -128,6 +172,65 @@ class RequestedFriend extends StatelessWidget {
         ));
   }
 
+  acceptFriendRequest(snapshot){
+
+     try{
+       var batch = db.batch();
+
+       var myFriendsDoc = db.collection("friends").doc(uid).collection("friendsList").doc(snapshot.id);   //TODO friendslistまでは別で定義
+       print(myFriendsDoc);
+       var requestFromHimDoc = db.collection("friendRequests").doc(uid).collection("requestFrom").doc(snapshot.id);
+       print(requestFromHimDoc);
+
+
+       batch.set(myFriendsDoc, {
+       "uid":snapshot.id,
+       "name":snapshot["name"],
+       "isFreeRef":"isFreeRef",//TODO isFreeRef
+       "icon":"iconRef",
+       "userInfoRef":"/users/${snapshot.id}",
+     },);
+
+
+       batch.delete(requestFromHimDoc);
+
+
+       batch.commit().whenComplete(() => print("フレンド許可バッチ処理正常終了"));
+
+
+
+     }catch(error){
+       print(error);
+     }
+
+  }
+
+  acceptFriendRequestCompleted(context,snapshot) {
+    print("complete");
+    Navigator.pop(context);
+    showDialog(
+        context: context,
+        builder: (_) {
+          return SimpleDialog(
+            title: Center(child: Text("フレンド登録完了")),
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left:32.0,right:32.0),
+                child: Column(
+                  children: [
+                    Text("${snapshot["name"]}さんとフレンドになりました。"),
+                    FlatButton(
+                        onPressed: ()=>Navigator.pop(context),
+                        child: Text("OK")
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
+
+  }
 }
 
 

@@ -183,12 +183,13 @@ class AddFriendIDPage extends StatelessWidget {
                     future: FirebaseFirestore.instance
                         .collection('users')
                         .doc(friendID).get(),
-                    builder: (context, document) {
-                      print(document.data);
+                    builder: (context, snapshot) {
+                      print(snapshot.data);
                         // データが取得できた場合
-                      if  (document.hasData) {
+                      if  (snapshot.hasData) {
+                        DocumentSnapshot _card = snapshot.data;
 
-                       var friendName =document.data["name"];
+                       var friendName =_card["name"];
                           // 取得した投稿メッセージ一覧を元にリスト表示
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -218,19 +219,19 @@ class AddFriendIDPage extends StatelessWidget {
                                     color: Colors.grey.shade500,
                                   ),
                                   FlatButton(
-                                    onPressed: () =>
-                                        friendRequest(friendID,friendName, context),
+                                    onPressed: () {
+                                        friendRequest(friendID,context,_card);
+                                    },
                                     child: Text("申請する"),
                                     color: Colors.blue,),
                                 ],
                               )
                             ],
                           );
-                        } else if (document.hasError) {
+                        } else if (snapshot.hasError) {
                           return showFindErrorDialog(context);
                         }
                         // データが読込中の場合
-
                         return Center(child:
                         CircularProgressIndicator());
                       }
@@ -244,8 +245,10 @@ class AddFriendIDPage extends StatelessWidget {
 
 
 
-  Future<void> friendRequest(String friendID,String friendName, BuildContext context) async {
+  Future<void> friendRequest(String friendID, BuildContext context,DocumentSnapshot snapshot) async {
+
     DateTime now = DateTime.now().toLocal(); // 現在の日時
+
 
     final requestToDoc = FirebaseFirestore.instance
         .collection('friendRequests') // コレクションID指定
@@ -254,21 +257,24 @@ class AddFriendIDPage extends StatelessWidget {
         .doc(friendID);
 
       try {
-        FirebaseFirestore.instance.runTransaction((transaction) async {
-          final requestTo = await transaction.get(requestToDoc);
+
+          final requestTo = await requestToDoc.get();
 
           if(requestTo.exists) {
             print("申請済み");
+
+            showAlreadyRequested(context,snapshot);
           }else{
-            transaction.set(requestToDoc, {
+            requestToDoc.set({
               'friendID': friendID,
-              'name': friendName,
+              'name': snapshot["name"],
               'status': 0, //0:未承認,1:承認済み,2:拒否
               'createdAt': now
             });
+            showRequestFriendCompleted(context,snapshot);
           }
-        });
         GetClipBoardModel().clear();
+
       } catch (error) {
         print(error);
       }
@@ -303,6 +309,7 @@ class AddFriendIDPage extends StatelessWidget {
   }
 
   showRequestErrorDialog(context) {
+
    return  showDialog(
         context: context,
         builder: (_) {
@@ -325,6 +332,59 @@ class AddFriendIDPage extends StatelessWidget {
           );
         });
   }
+
+showRequestFriendCompleted(context,snapshot) {
+  Navigator.pop(context);
+  showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: Center(child: Text("フレンド申請完了")),
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left:32.0,right:32.0),
+              child: Column(
+                children: [
+                  Text("${snapshot["name"]}さんにフレンド申請を送りました。"),
+                  FlatButton(
+                      onPressed: ()=>Navigator.pop(context),
+                      child: Text("OK")
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      });
+
+}
+
+showAlreadyRequested(context,snapshot) {
+  Navigator.pop(context);
+  showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: Center(child: Text("フレンド申請済み")),
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left:32.0,right:32.0),
+              child: Column(
+                children: [
+                  Text("${snapshot["name"]}さんにはすでにフレンド申請が済んでいます。"),
+                  FlatButton(
+                      onPressed: ()=>Navigator.pop(context),
+                      child: Text("OK")
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      });
+
+}
+
 
   showMyIDErrorDialog(context) {
     return  showDialog(

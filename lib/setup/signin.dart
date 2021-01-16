@@ -94,8 +94,7 @@ class _LoginPageState extends State<LoginPage> {
         print('Singed in: ${user.uid}');
         userDocumentString = user.uid;
 
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => NavigationBar()));
+        checkUser(context);
       } catch (e) {
 
         print("失敗");

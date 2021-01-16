@@ -57,10 +57,10 @@ class RequestedFriend extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text("申請を許可してフレンドになりましょう。"),
             )),
-            FutureBuilder<QuerySnapshot>(   //SnapShotではないときはFutureBuilderとget()とfuture:
+            StreamBuilder<QuerySnapshot>(   //SnapShotではないときはFutureBuilderとget()とfuture:
       // 投稿メッセージ一覧を取得（非同期処理）
       // 投稿日時でソート
-              future: FirebaseFirestore.instance.collection("friendRequests").doc(uid).collection("requestFrom").orderBy("createdAt").get(),
+              stream: FirebaseFirestore.instance.collection("friendRequests").doc(uid).collection("requestFrom").orderBy("createdAt").snapshots(),
               builder: (context, snapshot) {
                 // データが取得できた場合
                 if (snapshot.hasData) {
@@ -186,7 +186,7 @@ class RequestedFriend extends StatelessWidget {
        batch.set(myFriendsDoc, {
        "uid":snapshot.id,
        "name":snapshot["name"],
-       "isFreeRef":"isFreeRef",//TODO isFreeRef
+       "isFreeRef":true,//TODO isFreeRef
        "icon":"iconRef",
        "userInfoRef":"/users/${snapshot.id}",
      },);
@@ -210,7 +210,7 @@ class RequestedFriend extends StatelessWidget {
     Navigator.pop(context);
     showDialog(
         context: context,
-        builder: (_) {
+        builder: (context) {
           return SimpleDialog(
             title: Center(child: Text("フレンド登録完了")),
             children: [

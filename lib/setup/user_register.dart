@@ -280,9 +280,9 @@ class RegisterConfirmPage extends StatelessWidget{
             ),
             OutlinedButton(
                 child: Text("これで始める"),
-              onPressed: () =>  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavigationBar()),
+              onPressed: () =>  checkUser(context),
           )
-          )
+
         ],
       )
       ),

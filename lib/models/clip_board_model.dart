@@ -1,6 +1,6 @@
 
 
-import 'package:asoble_app/pages/from_profile_pages/add_freind_page.dart';
+import 'package:asoble_app/pages/friendRequest/add_freind_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

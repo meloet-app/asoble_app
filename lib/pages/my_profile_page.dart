@@ -1,4 +1,4 @@
-import 'package:asoble_app/pages/from_profile_pages/add_freind_page.dart';
+import 'package:asoble_app/pages/friendRequest/add_freind_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -119,7 +119,7 @@ class MyProfilePage extends StatelessWidget {
                     Container(
                       width: mediaSize.width * 0.3,
                       child: GestureDetector(
-                        onTap:()=>Navigator.push(context, MaterialPageRoute(builder: (context) => AddFriendPage())),
+                        onTap:()=>Navigator.push(context, CupertinoPageRoute(builder: (context) => RequestFriendPage())),
                         child: Column(
                           children: [
                             Icon(

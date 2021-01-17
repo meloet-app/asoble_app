@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-class AddFriendPage extends StatelessWidget {
+class RequestFriendPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,10 +17,6 @@ class AddFriendPage extends StatelessWidget {
         body: Container(
             child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("申請されているフレンド"),
-            ),
             Container(
               height: 80,
             ),
